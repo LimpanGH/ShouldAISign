@@ -8,6 +8,7 @@ import { schemaUser } from './db/schemas/userSchema';
 import { schemaTask } from './db/schemas/taskSchema';
 import { mergeSchemas } from '@graphql-tools/schema';
 import jwt from 'jsonwebtoken';
+import { getAIResponse } from './ai/ai';
 
 dotenv.config();
 const mongodbUri = process.env.MONGODB_URI;
@@ -20,7 +21,9 @@ if (!mongodbUri) {
   throw new Error('MONGODB_URI is not defined in the environment variables.');
 }
 if (!process.env.JWT_SECRET_KEY) {
-  throw new Error('JWT_SECRET_KEY is not defined in the environment variables.');
+  throw new Error(
+    'JWT_SECRET_KEY is not defined in the environment variables.'
+  );
 }
 connectToDB(mongodbUri);
 const schema = mergeSchemas({
@@ -47,6 +50,16 @@ app.use(
     };
   })
 );
+
+app.get('/ai', async (req, res) => {
+  try {
+    const aiResponse = await getAIResponse();
+    res.json(aiResponse);
+  } catch (error) {
+    console.error('Error fetching AI response:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);

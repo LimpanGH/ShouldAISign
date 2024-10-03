@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/index.ts",
     "build": "tsc && node fix-import-extensions.js",
-    "start": "NODE_DEBUG=module node ./dist/index.js"
+    "start": "NODE_DEBUG=module node ./dist/index.js",
+    "tsx": "tsx watch src/ai/ai.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +26,8 @@
     "graphiql": "^3.7.1",
     "graphql": "^15.9.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.6.2"
+    "mongoose": "^8.6.2",
+    "openai": "^4.67.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

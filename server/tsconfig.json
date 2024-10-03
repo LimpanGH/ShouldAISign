@@ -10,8 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "noImplicitAny": true,
+    "noImplicitAny": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/ai/ai.ts"],
   "exclude": ["node_modules", "dist"]
 }

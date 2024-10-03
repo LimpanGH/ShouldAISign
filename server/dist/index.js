@@ -7,6 +7,7 @@ import { schemaUser } from './db/schemas/userSchema.js';
 import { schemaTask } from './db/schemas/taskSchema.js';
 import { mergeSchemas } from '@graphql-tools/schema';
 import jwt from 'jsonwebtoken';
+import { getAIResponse } from './ai/ai.js';
 dotenv.config();
 const mongodbUri = process.env.MONGODB_URI;
 const port = process.env.PORT;
@@ -40,6 +41,16 @@ app.use('/graphql', graphqlHTTP((req, res) => {
         context: { user: decodedToken },
     };
 }));
+app.get('/ai', async (req, res) => {
+    try {
+        const aiResponse = await getAIResponse();
+        res.json(aiResponse);
+    }
+    catch (error) {
+        console.error('Error fetching AI response:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 app.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
 });

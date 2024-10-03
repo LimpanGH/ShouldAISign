@@ -20,12 +20,6 @@ const RootQuery = new GraphQLObjectType({
             type: TaskType,
             args: {
                 id: { type: GraphQLID },
-                // title: { type: GraphQLString },
-                // description: { type: GraphQLString },
-                // status: { type: GraphQLString },
-                // assignedTo: { type: GraphQLString },
-                // createdAt: { type: GraphQLString },
-                // finishedBy: { type: GraphQLString },
             },
             resolve: taskResolvers.Query.getTaskByTaskId,
         },
