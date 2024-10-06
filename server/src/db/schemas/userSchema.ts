@@ -1,10 +1,20 @@
 console.log('Reading userSchema.ts');
 
-import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString,
+  GraphQLList,
+  GraphQLID,
+  graphql,
+} from 'graphql';
 import { UserModel, TaskModel } from '../models/userModels';
 import { TaskType } from './taskSchema';
 import userResolvers from '../controllers/userResolvers';
 import { title } from 'process';
+import { aiSchema } from './aiSchema';
+import { getAIResponse } from '../../ai/ai';
+import { aiResponseType } from './aiSchema';
 
 export const UserType = new GraphQLObjectType({
   name: 'User',
@@ -29,6 +39,13 @@ const LoginType = new GraphQLObjectType({
     user: { type: UserType },
   },
 });
+
+// const aiResponseType = new GraphQLObjectType({
+//   name: 'AIResponse',
+//   fields: {
+//     response: { type: GraphQLString },
+//   },
+// });
 
 // console.log(LoginType.getFields());
 
@@ -96,6 +113,24 @@ const Mutation = new GraphQLObjectType({
         ids: { type: new GraphQLList(GraphQLString) },
       },
       resolve: userResolvers.Mutation.deleteMultipleUsers,
+    },
+    aiResponse: {
+      type: aiResponseType,
+      args: {
+        question: { type: GraphQLString },
+      },
+      // resolve: async (_: any, args: { question: string }) => {
+      resolve: async (_: any, args: { [question: string]: any }) => {
+        try {
+          const responseText = await getAIResponse(args.question);
+          console.log('AI Response:', responseText);
+
+          return { response: responseText }; // Return the response in the expected format
+        } catch (error) {
+          console.error('Error fetching AI response:', error);
+          throw new Error('Error fetching AI response');
+        }
+      },
     },
   },
 });

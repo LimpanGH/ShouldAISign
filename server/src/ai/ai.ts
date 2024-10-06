@@ -15,16 +15,18 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-export async function getAIResponse() {
+export async function getAIResponse(question: string) {
   const completion = await openai.chat.completions.create({
-      messages: [{ role: 'system', content: 'What is airpods?' }],
+      messages: [{ role: 'system', content: question }],
       // model: 'gpt-3.5-turbo',
       model: 'gpt-4-turbo',  });
 
   console.log(completion.choices[0]);
+  return completion.choices[0].message.content;
+  
 }
 
-getAIResponse();
+// getAIResponse();
 
 
 
