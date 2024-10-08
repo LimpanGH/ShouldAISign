@@ -13,7 +13,7 @@ import { TaskType } from './taskSchema';
 import userResolvers from '../controllers/userResolvers';
 import { title } from 'process';
 import { aiSchema } from './aiSchema';
-import { getAIResponse } from '../../ai/ai';
+import { getAIResponse } from '../ai';
 import { aiResponseType } from './aiSchema';
 
 export const UserType = new GraphQLObjectType({

@@ -9,7 +9,7 @@ import { schemaUser } from './db/schemas/userSchema';
 import { schemaTask } from './db/schemas/taskSchema';
 import { mergeSchemas } from '@graphql-tools/schema';
 import jwt from 'jsonwebtoken';
-import { getAIResponse } from './ai/ai';
+import { getAIResponse } from './db/ai';
 import { aiSchema } from './db/schemas/aiSchema';
 
 dotenv.config();

@@ -12,6 +12,6 @@
     "moduleResolution": "node",
     "noImplicitAny": true
   },
-  "include": ["src/**/*.ts", "src/ai/ai.ts"],
+  "include": ["src/**/*.ts", "src/db/ai.ts"],
   "exclude": ["node_modules", "dist"]
 }

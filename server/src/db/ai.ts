@@ -1,10 +1,7 @@
+// import * as dotenv from 'dotenv';
 import OpenAI from 'openai';
-import dotenv from 'dotenv';
 
-dotenv.config();
-
-// const APIkey = process.env.OPENAI_API_KEY;
-const APIkey = "";
+const APIkey = process.env.OPENAI_API_KEY as string;
 
 if (!APIkey) {
   throw new Error('Missing OpenAI API key in environment variables');
@@ -17,16 +14,13 @@ const openai = new OpenAI({
 
 export async function getAIResponse(question: string) {
   const completion = await openai.chat.completions.create({
-      messages: [{ role: 'system', content: question }],
-      // model: 'gpt-3.5-turbo',
-      model: 'gpt-4-turbo',  });
+    messages: [{ role: 'system', content: question }],
+    // model: 'gpt-3.5-turbo',
+    model: 'gpt-4-turbo',
+  });
 
   console.log(completion.choices[0]);
   return completion.choices[0].message.content;
-  
 }
 
 // getAIResponse();
-
-
-

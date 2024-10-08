@@ -1,13 +1,18 @@
-import { GraphQLString, GraphQLNonNull, GraphQLObjectType, GraphQLSchema } from 'graphql';
-import { getAIResponse } from '../../ai/ai';
+import {
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLSchema,
+} from 'graphql';
+import { getAIResponse } from '../ai';
 import { AiModel } from '../models/aiModels';
 
 export const aiResponseType = new GraphQLObjectType({
-    name: 'AIResponse',
-    fields: {
-      response: { type: GraphQLString },
-    },
-  });
+  name: 'AIResponse',
+  fields: {
+    response: { type: GraphQLString },
+  },
+});
 
 // Define the Mutation for AI Response
 const Mutation = new GraphQLObjectType({
@@ -32,7 +37,7 @@ const Mutation = new GraphQLObjectType({
             aiResponse: response,
           });
 
-          return {response}; // Return the AI's response
+          return { response }; // Return the AI's response
         } catch (error) {
           throw new Error('Error fetching AI response');
         }
