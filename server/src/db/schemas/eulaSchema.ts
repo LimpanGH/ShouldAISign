@@ -1,10 +1,10 @@
-console.log('Reading taskSchema.ts');
+console.log('Reading eulaSchema.ts');
 
 import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID } from 'graphql';
-import { taskResolvers } from '../controllers/taskResolvers';
+import { eulaResolvers } from '../controllers/eulaResolvers';
 
-export const TaskType = new GraphQLObjectType({
-  name: 'Task',
+export const EulaType = new GraphQLObjectType({
+  name: 'Eula',
   fields: () => ({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
@@ -19,23 +19,23 @@ export const TaskType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    getTaskByTaskId: {
-      type: TaskType,
+    getEulaByEulaId: {
+      type: EulaType,
       args: {
         id: { type: GraphQLID },
       },
-      resolve: taskResolvers.Query.getTaskByTaskId,
+      resolve: eulaResolvers.Query.getEulaByEulaId,
     },
-    getAllTasks: {
-      type: new GraphQLList(TaskType),
-      resolve: taskResolvers.Query.getAllTasks,
+    getAllEulas: {
+      type: new GraphQLList(EulaType),
+      resolve: eulaResolvers.Query.getAllEulas,
     },
-    getTasksAssignedToUserId: {
-      type: new GraphQLList(TaskType),
+    getEulasAssignedToUserId: {
+      type: new GraphQLList(EulaType),
       args: {
         assignedTo: { type: GraphQLID },
       },
-      resolve: taskResolvers.Query.getTasksAssignedToUserId,
+      resolve: eulaResolvers.Query.getEulasAssignedToUserId,
     },
   },
 });
@@ -43,36 +43,36 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    addTask: {
-      type: TaskType,
+    addEula: {
+      type: EulaType,
       args: {
         title: { type: GraphQLString },
         description: { type: GraphQLString },
         status: { type: GraphQLString },
       },
-      resolve: taskResolvers.Mutation.addTask,
+      resolve: eulaResolvers.Mutation.addEula,
     },
-    addTaskToUserId: {
-      type: TaskType,
+    addEulaToUserId: {
+      type: EulaType,
       args: {
         title: { type: GraphQLString },
         description: { type: GraphQLString },
         status: { type: GraphQLString },
         assignedTo: { type: GraphQLID },
       },
-      resolve: taskResolvers.Mutation.addTaskToUserId,
+      resolve: eulaResolvers.Mutation.addEulaToUserId,
     },
-    deleteTask: {
-      type: TaskType,
+    deleteEula: {
+      type: EulaType,
       args: {
         id: { type: GraphQLID },
       },
-      resolve: taskResolvers.Mutation.deleteTask,
+      resolve: eulaResolvers.Mutation.deleteEula,
     },
   },
 });
 
-export const schemaTask = new GraphQLSchema({
+export const schemaEula = new GraphQLSchema({
   query: RootQuery,
   mutation: Mutation,
 });

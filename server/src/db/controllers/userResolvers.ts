@@ -1,7 +1,7 @@
 console.log('Reading userResolvers.ts');
 
 import bcrypt from 'bcrypt';
-import { TaskModel } from '../models/taskModels';
+import { EulaModel } from '../models/eulaModels';
 import { UserModel } from '../models/userModels';
 import { checkAuth } from '../helpers/authHelpers';
 import mongoose from 'mongoose';
@@ -63,7 +63,7 @@ const userResolvers = {
       if (!args.id) {
         throw new Error('Task ID is required');
       }
-      const tasks = await TaskModel.find({ assignedTo: args.id });
+      const tasks = await EulaModel.find({ assignedTo: args.id });
       if (!tasks || tasks.length === 0) {
         throw new Error(`No tasks found for user with ID:' ${args.id}`);
       }
@@ -73,7 +73,7 @@ const userResolvers = {
 
   User: {
     tasks: (parent: UserParent) => {
-      return TaskModel.find({ assignedTo: parent.id });
+      return EulaModel.find({ assignedTo: parent.id });
     },
   },
 
@@ -88,7 +88,9 @@ const userResolvers = {
       if (!valid) {
         throw new Error('Incorrect password');
       }
-      const token = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, { expiresIn: '3h' });
+      const token = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {
+        expiresIn: '3h',
+      });
       console.log('Users token is:', token);
       return { token, user };
     },
@@ -120,7 +122,11 @@ const userResolvers = {
       console.log('New user added', { name: args.name, email: args.email });
       return user.save();
     },
-    deleteUser: async (_: any, args: { [key: string]: any }, context: Context) => {
+    deleteUser: async (
+      _: any,
+      args: { [key: string]: any },
+      context: Context
+    ) => {
       const { id } = args as UserArgs;
       console.log('Context user:', context.user);
       checkAuth(context);
@@ -143,7 +149,11 @@ const userResolvers = {
       return deletedUser;
     },
 
-    deleteMultipleUsers: async (_: any, args: { [key: string]: any }, context: Context) => {
+    deleteMultipleUsers: async (
+      _: any,
+      args: { [key: string]: any },
+      context: Context
+    ) => {
       const { id } = args as UserArgs; // Cast args to UserArgs
 
       console.log('Context user:', context.user); // Log the context user

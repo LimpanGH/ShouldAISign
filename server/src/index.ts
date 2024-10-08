@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 import { connectToDB } from './db/dbConnect';
 import { graphqlHTTP } from 'express-graphql';
 import { schemaUser } from './db/schemas/userSchema';
-import { schemaTask } from './db/schemas/taskSchema';
+import { schemaEula } from './db/schemas/eulaSchema';
 import { mergeSchemas } from '@graphql-tools/schema';
 import jwt from 'jsonwebtoken';
 import { getAIResponse } from './db/ai';
@@ -29,7 +29,7 @@ if (!process.env.JWT_SECRET_KEY) {
 }
 connectToDB(mongodbUri);
 const schema = mergeSchemas({
-  schemas: [schemaUser, schemaTask, aiSchema],
+  schemas: [schemaUser, schemaEula, aiSchema],
 });
 
 app.use(

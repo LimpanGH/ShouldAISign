@@ -1,8 +1,8 @@
-console.log('Reading taskModels.ts');
+console.log('Reading eulaModels.ts');
 
 import mongoose from 'mongoose';
 
-const TaskSchema = new mongoose.Schema({
+const EulaSchema = new mongoose.Schema({
   title: String,
   description: String,
   status: String,
@@ -11,6 +11,6 @@ const TaskSchema = new mongoose.Schema({
   finishedBy: Date, //datum eller en kopplat till en person?
 });
 
-const TaskModel = mongoose.model('Task', TaskSchema);
+const EulaModel = mongoose.model('Eula', EulaSchema);
 
-export { TaskSchema, TaskModel };
+export { EulaSchema, EulaModel };

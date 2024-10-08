@@ -8,8 +8,8 @@ import {
   GraphQLID,
   graphql,
 } from 'graphql';
-import { UserModel, TaskModel } from '../models/userModels';
-import { TaskType } from './taskSchema';
+import { UserModel, EulaModel } from '../models/userModels';
+import { EulaType } from './eulaSchema';
 import userResolvers from '../controllers/userResolvers';
 import { title } from 'process';
 import { aiSchema } from './aiSchema';
@@ -24,7 +24,7 @@ export const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     // password: { type: GraphQLString },
     tasks: {
-      type: new GraphQLList(TaskType),
+      type: new GraphQLList(EulaType),
       resolve: userResolvers.User.tasks,
     },
   }),
@@ -70,7 +70,7 @@ export const RootQuery = new GraphQLObjectType({
       resolve: userResolvers.Query.getAllUsers,
     },
     getTaskByUserId: {
-      type: new GraphQLList(TaskType),
+      type: new GraphQLList(EulaType),
       args: {
         id: { type: GraphQLID },
       },

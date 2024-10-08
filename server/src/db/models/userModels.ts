@@ -1,7 +1,7 @@
 console.log('Reading userModels.ts');
 
 import mongoose from 'mongoose';
-import { TaskSchema, TaskModel } from '../models/taskModels';
+import { EulaSchema, EulaModel } from './eulaModels';
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -11,4 +11,4 @@ const UserSchema = new mongoose.Schema({
 
 const UserModel = mongoose.model('User', UserSchema);
 
-export { UserModel, TaskModel };
+export { UserModel, EulaModel };
