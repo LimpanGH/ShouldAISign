@@ -97,11 +97,11 @@ const userResolvers = {
 
     addUser: async (_: any, args: { [key: string]: any }, context: Context) => {
       const { name, email, password } = args as AddUserArgs;
-      if (!context.user) {
-        throw new Error(
-          'Unauthorized to add user. Please add a valid token in the Authorization header'
-        );
-      }
+      // if (!context.user) {
+      //   throw new Error(
+      //     'Unauthorized to add user. Please add a valid token in the Authorization header'
+      //   );
+      // }
       if (!email || email.trim() === '') {
         throw new Error('Email cannot be empty');
       }
