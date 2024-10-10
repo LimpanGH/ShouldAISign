@@ -62,7 +62,7 @@ export const eulaResolvers = {
   Mutation: {
     addEula: async (_: any, args: { [key: string]: any }, context: Context) => {
       console.log('Context user:', context.user); // Log the context user
-      checkAuth(context);
+      // checkAuth(context);
       const eula = new EulaModel({
         title: args.title,
         description: args.description,
