@@ -1,16 +1,18 @@
 console.log('Reading index.ts');
 
-import express from 'express';
+import { mergeSchemas } from '@graphql-tools/schema';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
-import { connectToDB } from './db/dbConnect';
+import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
-import { schemaUser } from './db/schemas/userSchema';
-import { schemaEula } from './db/schemas/eulaSchema';
-import { mergeSchemas } from '@graphql-tools/schema';
 import jwt from 'jsonwebtoken';
 import { getAIResponse } from './db/ai';
+import { connectToDB } from './db/dbConnect';
 import { aiSchema } from './db/schemas/aiSchema';
+import { schemaEula } from './db/schemas/eulaSchema';
+import { schemaUser } from './db/schemas/userSchema';
+import { upload, handleFileUploadAndConvert } from '../src/db/pandoc/pandoc'; 
+
 
 dotenv.config();
 const mongodbUri = process.env.MONGODB_URI;
@@ -51,7 +53,7 @@ app.use(async (req, res, next) => {
         console.log('Invalid or expired token');
       }
     }
-console.log('tjoflöjt');
+    console.log('tjoflöjt');
 
     graphqlHTTP({
       schema: schema,
@@ -74,46 +76,12 @@ console.log('tjoflöjt');
       res.status(500).send('Internal Server Error');
     }
   } else {
-    next(); // For other routes, continue to next middleware
+    next();
   }
 });
 
-// app.use(
-//   '/graphql',
-//   graphqlHTTP((req, res) => {
-//     const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
-//     let decodedToken = null;
-//     if (token) {
-//       try {
-//         decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY || '');
-//       } catch (err) {
-//         console.log('Invalid or expired token');
-//       }
-//     }
-//     return {
-//       schema: schema,
-//       graphiql: true,
-//       // context: { user: decodedToken || null},
-//       context: { user: decodedToken },
-//     };
-//   })
-// );
+app.post('/convert', upload.single('file'), handleFileUploadAndConvert);
 
-// app.get('/ai', async (req, res) => {
-//   try {
-//     const question = req.query.question as string;
-
-//     if(!question) {
-//       return res.status(400).send('Please provide a question');
-//     }
-
-//     const aiResponse = await getAIResponse(question);
-//     res.json(aiResponse);
-//   } catch (error) {
-//     console.error('Error fetching AI response:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);
