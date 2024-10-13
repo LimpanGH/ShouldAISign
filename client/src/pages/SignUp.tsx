@@ -25,7 +25,7 @@ const SignUp = () => {
         <h1>Sign Up</h1>
         <a href='/'>Home</a>
         <a href='/eula-Checker'>EULA Checker</a>
-        <a href='/login'>Log In</a>
+        <a href='/signin'>Sign In</a>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className='signup-form'>

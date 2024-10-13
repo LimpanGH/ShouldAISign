@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import SignInComponent from '../components/signInComponent';
 import '../css/SignIn.css';
 
@@ -14,8 +15,14 @@ export const SignIn = () => {
     formState: { errors },
   } = useForm<SignInFormData>();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data: SignInFormData) => {
-    await SignInComponent.handleSubmit(data);
+    // await SignInComponent.handleSubmit(data);
+    const success = await SignInComponent.handleSubmit(data);
+    if (success) {
+      navigate('/eula-checker');
+    }
   };
 
   return (
@@ -23,11 +30,6 @@ export const SignIn = () => {
       <div className='signin-container'>
         <div className='signin-header'>
           <h1>Sign In</h1>
-          <a href='/'>Home</a>
-          <br />
-          <a href='/eula-Checker'>EULA Checker</a>
-          <br />
-          <a href='/login'>Log In</a>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className='signin-form'>
@@ -55,9 +57,8 @@ export const SignIn = () => {
             )}
           </div>
           <button type='submit' className='submit-button'>
-          Sign In
-        </button>
-
+            Sign In
+          </button>
         </form>
       </div>
     </>
