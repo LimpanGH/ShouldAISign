@@ -27,7 +27,9 @@ const SignUp = () => {
         <a href='/eula-Checker'>EULA Checker</a>
         <a href='/login'>Log In</a>
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className='signup-form'>
+        
         <div className='form-group'>
           <label htmlFor='name'>Name</label>
           <input
@@ -39,6 +41,7 @@ const SignUp = () => {
             <span className='error-message'>{errors.name.message}</span> // Use message from the error object
           )}
         </div>
+
         <div className='form-group'>
           <label htmlFor='email'>Email</label>
           <input
@@ -50,6 +53,7 @@ const SignUp = () => {
             <span className='error-message'>{errors.email.message}</span>
           )}
         </div>
+        
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
           <input
@@ -62,10 +66,13 @@ const SignUp = () => {
             <span className='error-message'>{errors.password.message}</span>
           )}
         </div>
+
         <button type='submit' className='submit-button'>
           Sign Up
         </button>
+
       </form>
+
     </div>
   );
 };
