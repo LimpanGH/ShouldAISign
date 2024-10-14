@@ -1,11 +1,51 @@
-import { loremIpsum } from 'lorem-ipsum';
+// // import { loremIpsum } from 'lorem-ipsum';
+// import classes from '../css/Contact.module.css';
+
+// const Contact = () => {
+//   return (
+//     <div className={classes['contact-container']}>
+//       <h1>Contact</h1>
+//       <h3>Linus Johannesson</h3>
+//       <div>
+//         {/* <p>{loremIpsum({ count: 4, units: 'paragraphs' })}</p> */}
+//         <div className={classes['contact-links']}>
+//           <a
+//             href='https://www.linkedin.com/in/linus-johannesson/'
+//             target='_blank'
+//             rel='noopener noreferrer'
+//           >
+//             LinkedIn
+//           </a>
+//           <a href='mailto:Linusj555@gmail.com'>Email Me</a>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Contact;
+
+
+import classes from '../css/Contact.module.css';
 
 const Contact = () => {
   return (
-    <div>
-      <h1>Contact</h1>
-      <div>
-        <p>{loremIpsum({ count: 4, units: 'paragraphs' })}</p>
+    <div className={classes['contact-container']}>
+      <h1>Contact Me</h1>
+      <h3>Linus Johannesson</h3>
+      <p>If you have any questions, feel free to reach out to me through the links below.</p>
+      <div className={classes['contact-links']}>
+        <a
+          className={classes['contact-link']}
+          href='https://www.linkedin.com/in/linus-johannesson/'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          LinkedIn
+        </a>
+        <a className={classes['contact-link']} href='mailto:Linusj555@gmail.com'>
+          Email Me
+        </a>
       </div>
     </div>
   );

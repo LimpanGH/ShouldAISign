@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import SignInComponent from '../components/signInComponent';
-import '../css/SignIn.css';
+import classes from '../css/SignIn.module.css'; // Importing CSS module
 
 export type SignInFormData = {
   email: string;
@@ -18,7 +18,6 @@ export const SignIn = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: SignInFormData) => {
-    // await SignInComponent.handleSubmit(data);
     const success = await SignInComponent.handleSubmit(data);
     if (success) {
       navigate('/eula-checker');
@@ -27,36 +26,36 @@ export const SignIn = () => {
 
   return (
     <>
-      <div className='signin-container'>
-        <div className='signin-header'>
+      <div className={classes['signin-container']}> {/* Using classes from module */}
+        <div className={classes['signin-header']}>
           <h1>Sign In</h1>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className='signin-form'>
-          <div className='form-group'>
+        <form onSubmit={handleSubmit(onSubmit)} className={classes['signin-form']}>
+          <div className={classes['form-group']}>
             <label htmlFor='email'>Email</label>
             <input
               id='email'
-              className={`form-input ${errors.email ? 'input-error' : ' '}`}
+              className={`${classes['form-input']} ${errors.email ? classes['input-error'] : ''}`}
               {...register('email', { required: 'Email is required' })}
             />
             {errors.email && (
-              <span className='error-message'>{errors.email.message}</span>
+              <span className={classes['error-message']}>{errors.email.message}</span>
             )}
           </div>
 
-          <div className='form-group'>
+          <div className={classes['form-group']}>
             <label htmlFor='password'>Password</label>
             <input
               id='password'
-              className={`form-input ${errors.password ? 'input-error' : ''}`}
+              className={`${classes['form-input']} ${errors.password ? classes['input-error'] : ''}`}
               {...register('password', { required: 'Password is required' })}
             />
             {errors.password && (
-              <span className='error-message'>{errors.password.message}</span>
+              <span className={classes['error-message']}>{errors.password.message}</span>
             )}
           </div>
-          <button type='submit' className='submit-button'>
+          <button type='submit' className={classes['submit-button']}>
             Sign In
           </button>
         </form>
@@ -64,5 +63,3 @@ export const SignIn = () => {
     </>
   );
 };
-
-// export default SignIn;

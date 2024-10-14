@@ -7,18 +7,38 @@ import About from './pages/About';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Contact from './pages/Contact';
-import './css/NavBar.css';
 
 import './App.css';
 
+// function App() {
+//   return (
+//     <>
+//       <div>
+//         <NavBar />
+//       </div>
+
+//       <div className='pages-container'>
+//         <Routes>
+//           <Route path='/' element={<Home />} />
+//           <Route path='/signin' element={<SignIn />} />
+//           <Route path='/signup' element={<SignUp />} />
+//           <Route path='/eula-checker' element={<EulaChecker />} />
+//           <Route path='/about' element={<About />} />
+//           <Route path='/contact' element={<Contact />} />
+//         </Routes>
+//       </div>
+//       <Footer />
+//     </>
+//   );
+// }
+
+// export default App;
+
 function App() {
   return (
-    <>
-      <div className='navbar-container'>
-        <NavBar />
-      </div>
-
-      <div className='pages-container'>
+    <div className="app-container">
+      <NavBar />
+      <div className="pages-container">
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/signin' element={<SignIn />} />
@@ -28,8 +48,10 @@ function App() {
           <Route path='/contact' element={<Contact />} />
         </Routes>
       </div>
-      <Footer/>
-    </>
+      <div className='footer-container'>
+      <Footer />
+      </div>
+    </div>
   );
 }
 

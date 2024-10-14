@@ -1,14 +1,16 @@
-import '../css/Footer.css' 
+// import classes from '../css/Footer.module.css'
 
 const Footer = () => {
-    return (
-        <div className='footer-container'>
-            <footer>
-                <p>Should I Sign</p>
-                <p>2021</p>
-            </footer>
-        </div>
-    );
-}
+  const currentYear = new Date().getFullYear();
+  return (
+    // <div className={classes['footer-container']}></div>
+    <div>
+      <footer>
+        <p>Should I Sign</p>
+        <p>{currentYear}</p>
+      </footer>
+    </div>
+  );
+};
 
 export default Footer;

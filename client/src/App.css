@@ -9,6 +9,40 @@
 
 
 
+/* ------------------ */
+/* App.css */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the container fills the viewport height */
+}
+
+.pages-container {
+  flex: 1; /* This will allow the pages container to grow and push the footer down */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center; /* Center align the footer content */
+  align-items: center; /* Vertically center align the footer content */
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  background-color: #333;
+
+}
+
+/* ------------------ */
+
+
+
+
 .pages-container {
   min-height: 80vh;
   display: flex;
