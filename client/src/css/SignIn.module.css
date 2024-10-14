@@ -1,41 +1,40 @@
-.signup-container {
+.signin-container {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-    border-radius: 8px;
+  border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
-
 }
 
-.signup-header {
+.signin-header {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.signup-header a {
+.signin-header a {
   color: #007bff;
   text-decoration: none;
   display: block;
   margin-bottom: 10px;
 }
 
-.signup-header a:hover {
+.signin-header a:hover {
   text-decoration: underline;
 }
 
-.signup-form .form-group {
+.signin-form .form-group {
   margin-bottom: 20px;
 }
 
-.signup-form label {
+.signin-form label {
   display: block;
   font-size: 14px;
   margin-bottom: 8px;
   color: #333;
 }
 
-.signup-form .form-input {
+.signin-form .form-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 16px;
@@ -45,12 +44,12 @@
   box-sizing: border-box;
 }
 
-.signup-form .form-input:focus {
+.signin-form .form-input:focus {
   outline: none;
   border-color: #007bff;
 }
 
-.signup-form .submit-button {
+.signin-form .submit-button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -61,15 +60,15 @@
   font-size: 16px;
 }
 
-.signup-form .submit-button:hover {
+.signin-form .submit-button:hover {
   background-color: #0056b3;
 }
 
-.signup-form .error-message {
+.signin-form .error-message {
   color: red;
   font-size: 12px;
 }
 
-.signup-form .input-error {
+.signin-form .input-error {
   border-color: red;
 }

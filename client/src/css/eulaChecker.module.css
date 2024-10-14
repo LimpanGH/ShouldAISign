@@ -1,0 +1,86 @@
+.eulachecker-container {
+  min-width: 70vw;
+  min-height: 70vh;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.eulachecker-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.eulachecker-header h1 {
+  margin: 0;
+}
+
+.eulachecker-form {
+  margin-bottom: 20px;
+}
+
+.eulachecker-form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.eulachecker-form .form-input {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.eulachecker-form .form-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.eulachecker-form .submit-button {
+  width: 20%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.eulachecker-form .submit-button:hover {
+  background-color: #0056b3;
+}
+
+.eulachecker-form .error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.eulachecker-form .input-error {
+  border-color: red;
+}
+
+.dropzone {
+  width: 30vw;
+  margin: 0 auto;
+  border: 2px dashed #000;
+  padding: 20px;
+  /* margin-top: 20px; */
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.dropzone.active {
+  transform: scale(1.05);
+}
+
+.file-content {
+  margin-top: 20px;
+}
