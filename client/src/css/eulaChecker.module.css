@@ -72,7 +72,6 @@
   margin: 0 auto;
   border: 2px dashed #000;
   padding: 20px;
-  /* margin-top: 20px; */
   text-align: center;
   transition: transform 0.2s;
 }
@@ -83,4 +82,84 @@
 
 .file-content {
   margin-top: 20px;
+}
+
+.eula-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  width: 30%;
+}
+
+.eula-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.eula-list li {
+  max-height: 5rem;
+  /* overflow: scroll; */
+  overflow-y: auto;
+  display: flex;
+  /* align-items: center; */
+  align-items: flex-start;
+  margin-bottom: 10px;
+  background-color: rgb(177, 170, 170);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.eula-list h3 {
+  margin-left: 1rem;
+
+  text-align: left;
+}
+
+.eula-list p {
+  margin-left: 1rem;
+  text-align: left;
+}
+
+.eulachecker-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.eulachecker-form,
+.dropzone {
+  flex: 1;
+}
+
+.folder-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.folder-icon path {
+  fill: #fbbc1a;
+}
+
+.folder-icon.active path {
+  fill: blue;
+}
+
+.eula-cards {
+  border: 1px solid #ccc;
+}
+
+.eula-list li > div {
+  flex: 1;
+  overflow: hidden;
+}
+
+.eula-list li h3,
+.eula-list li p {
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
