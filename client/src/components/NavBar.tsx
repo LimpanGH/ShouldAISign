@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import classes from '../css/NavBar.module.css'; // Corrected file name to NavBar.module.css
+import classes from '../css/NavBar.module.css';
 
 const Navbar: React.FC = () => {
   return (
     <nav className={classes['navbar-container']}>
       <div className={classes['navbar-logo']}>
-        <Link to='/'>Should I Sign</Link>
+        <Link to='/'>
+          <img src='../src/assets/logo.svg' alt='logo' />
+        </Link>
+        <Link to='/'>ShouldAISign</Link>
       </div>
       <ul className={classes['navbar-links']}>
         <li>

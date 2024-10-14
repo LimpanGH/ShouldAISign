@@ -11,7 +11,13 @@
 }
 
 .navbar-logo {
-  background-color: blueviolet;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  max-height: 50px;
+  margin-right: 0.5rem;
 }
 
 .navbar-logo a {

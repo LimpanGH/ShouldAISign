@@ -10,35 +10,11 @@ import Contact from './pages/Contact';
 
 import './App.css';
 
-// function App() {
-//   return (
-//     <>
-//       <div>
-//         <NavBar />
-//       </div>
-
-//       <div className='pages-container'>
-//         <Routes>
-//           <Route path='/' element={<Home />} />
-//           <Route path='/signin' element={<SignIn />} />
-//           <Route path='/signup' element={<SignUp />} />
-//           <Route path='/eula-checker' element={<EulaChecker />} />
-//           <Route path='/about' element={<About />} />
-//           <Route path='/contact' element={<Contact />} />
-//         </Routes>
-//       </div>
-//       <Footer />
-//     </>
-//   );
-// }
-
-// export default App;
-
 function App() {
   return (
-    <div className="app-container">
+    <div className='app-container'>
       <NavBar />
-      <div className="pages-container">
+      <div className='pages-container'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/signin' element={<SignIn />} />
@@ -49,7 +25,7 @@ function App() {
         </Routes>
       </div>
       <div className='footer-container'>
-      <Footer />
+        <Footer />
       </div>
     </div>
   );

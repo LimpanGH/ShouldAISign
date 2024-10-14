@@ -1,80 +1,62 @@
-/* .contact-container {
+.contact-container {
   min-width: 50rem;
-  border-radius: 8px;
+  max-width: 90%;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
   border: 1px solid #ccc;
-  background-color: #f9f9f9;
   padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.contact-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.contact-container h3 {
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+.contact-container p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #555;
 }
 
 .contact-links {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 1rem;
-  text-align: left;
-  font-size: 3rem;
-} */
+  margin-top: 1rem;
+}
 
+.contact-link {
+  text-decoration: none;
+  color: white;
+  background-color: #007bff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
 
-.contact-container {
-    min-width: 50rem;
-    max-width: 90%; /* Increased width for better responsiveness */
-    border-radius: 12px; /* Slightly more rounded corners */
-    background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Subtle gradient background */
-    border: 1px solid #ccc;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Increased shadow for more depth */
-    margin: 2rem auto; /* Center the container with auto margins */
-    text-align: center; /* Center text within the container */
+.contact-link:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 1.5rem;
   }
-  
-  .contact-container h1 {
-    font-size: 2.5rem; /* Size for primary heading */
-    margin-bottom: 0.5rem; /* Space below heading */
-    color: #2c3e50; /* Darker color for better contrast */
-  }
-  
-  .contact-container h3 {
-    font-size: 1.8rem; /* Larger size for the name */
-    color: #34495e; /* A slightly muted color for contrast */
-    margin-bottom: 1rem; /* Space below name */
-  }
-  
-  .contact-container p {
-    font-size: 1.1rem; /* Increased font size for readability */
-    margin-bottom: 2rem; /* Space below paragraph */
-    color: #555; /* Soft gray for better readability */
-  }
-  
-  .contact-links {
-    display: flex;
-    justify-content: space-around; /* Evenly spaced links */
-    margin-top: 1rem; /* Space above links */
-  }
-  
+
   .contact-link {
-    text-decoration: none; /* Remove underline */
-    color: white; /* Change link text to white */
-    background-color: #007bff; /* Bootstrap primary color */
-    padding: 0.5rem 1.5rem; /* Add padding for button-like appearance */
-    border-radius: 25px; /* Rounded buttons */
-    font-size: 1.1rem; /* Adjusted size for clarity */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Subtle shadow for button effect */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
   }
-  
-  .contact-link:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
-  }
-  
-  @media (max-width: 600px) {
-    .contact-container {
-      padding: 1.5rem; /* Reduced padding on smaller screens */
-    }
-  
-    .contact-link {
-      padding: 0.5rem 1rem; /* Adjust button padding for smaller screens */
-      font-size: 1rem; /* Font size adjustment for smaller screens */
-    }
-  }
-  
+}

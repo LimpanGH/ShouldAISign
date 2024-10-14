@@ -147,7 +147,6 @@
 
 // export default EulaChecker;
 
-
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { request, gql } from 'graphql-request';
@@ -254,8 +253,8 @@ function EulaChecker() {
 
       <div className={classes['eulachecker-form']}>
         <label htmlFor='question'>
-          Ställ din fråga
           <input
+            placeholder='Ask your question'
             type='text'
             className={classes['form-input']}
             value={question}
@@ -264,7 +263,7 @@ function EulaChecker() {
           />
         </label>
         <button onClick={handleSubmit} className={classes['submit-button']}>
-          Skicka
+          Send
         </button>
         {response && (
           <div>
@@ -276,7 +275,9 @@ function EulaChecker() {
 
       <div
         {...getRootProps({
-          className: `${classes.dropzone} ${isDragActive ? classes.active : ''}`,
+          className: `${classes.dropzone} ${
+            isDragActive ? classes.active : ''
+          }`,
         })}
       >
         <input {...getInputProps()} />
