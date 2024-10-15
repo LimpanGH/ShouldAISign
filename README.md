@@ -1,4 +1,4 @@
-## ShouldAISign - backend
+## ShouldAISign - Backend
 
 ### Description
 
