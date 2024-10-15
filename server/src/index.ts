@@ -51,8 +51,6 @@ app.use(async (req, res, next) => {
         console.log('Invalid or expired token');
       }
     }
-console.log('tjoflöjt');
-
     graphqlHTTP({
       schema: schema,
       graphiql: true,

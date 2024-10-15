@@ -5,6 +5,9 @@ import FolderIcon from '../components/FolderSVG';
 import SpeedometerSVG from '../components/spedometer';
 import classes from '../css/eulaChecker.module.css';
 
+const jwtToken = 'token'; // Name of the token in local storage
+const token = localStorage.getItem(jwtToken); // Check if the token exists
+
 type AIResponseData = {
   aiResponse: {
     response: string;
@@ -39,6 +42,7 @@ function EulaChecker() {
     [key: string]: boolean;
   }>({});
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
+  
   const fetchEulas = async () => {
     const query = gql`
       query GetAllEulas {
@@ -203,7 +207,16 @@ function EulaChecker() {
             ? 'Drop here'
             : 'Drag and drop a .txt file here, or click to select a file'}
         </div>
-        <h2>Your EULAs</h2>
+        {/* <h2>Your EULAs</h2> */}
+        <div>
+          {!token ? (
+            <h2>Please log in to see your EULAs.</h2>
+          ) : (
+            <div>
+              <h2>Your EULAS</h2>
+            </div>
+          )}
+        </div>
         {eulas.length > 0 ? (
           <ul>
             {eulas.map((eula) => (

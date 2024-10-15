@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import SignUpComponent from '../components/signUpComponent';
 import classes from '../css/SignUp.module.css';
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for validating email format
 
 export type SignUpFormData = {
   name: string;
@@ -17,6 +18,8 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     await SignUpComponent.handleSubmit(data);
+    window.location.href = '/signin';
+
   };
 
   return (
@@ -24,9 +27,7 @@ const SignUp = () => {
       {' '}
       <div className={classes['signup-header']}>
         <h1>Sign Up</h1>
-        <a href='/'>Home</a>
-        <a href='/eula-Checker'>EULA Checker</a>
-        <a href='/signin'>Sign In</a>
+        
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -51,6 +52,13 @@ const SignUp = () => {
         <div className={classes['form-group']}>
           <label htmlFor='email'>Email</label>
           <input
+            {...register('email', { 
+              required: 'Email is required',
+              pattern: {
+                value: emailRegex,
+                message: 'Invalid email format',
+              },
+            })} 
             id='email'
             className={`${classes['form-input']} ${
               errors.email ? classes['input-error'] : ''
