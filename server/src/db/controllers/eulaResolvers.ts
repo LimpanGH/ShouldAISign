@@ -61,16 +61,15 @@ export const eulaResolvers = {
   },
   Mutation: {
     addEula: async (_: any, args: { [key: string]: any }, context: Context) => {
-      console.log('Context user:', context.user); // Log the context user
+      console.log('Context user:', context.user);
       // checkAuth(context);
       const eula = new EulaModel({
         title: args.title,
         description: args.description,
         status: args.status,
         createdAt: new Date().toISOString(),
-        //         const swedenTime = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
-        // const createdAt = swedenTime;
       });
+      console.log(eula);
       return eula.save();
     },
     addEulaToUserId: async (

@@ -1,4 +1,4 @@
-## Trullo
+## ShouldAISign - backend
 
 ### Description
 
@@ -14,6 +14,7 @@ Technologies Used:
 - Bcrypt: A library for hashing passwords.
 - JWT: A method for securely transmitting information between parties.
 - Express Validator: A set of middleware for validating and sanitizing user input.
+- OpenAI API: A service for generating AI responses based on user queries, enhancing the functionality of the application.
 
 ### Getting Started
 
@@ -23,8 +24,8 @@ Make sure you have the following installed:
 - Node.js
 - MongoDB
 - Install the dependencies in server folder: `npm i`
-- Create a .env file in the root directory and set the required environment variables, including:
-  `JWT_SECRET_KEY=your_secret_key` and `MONGO_URI=your_mongodb_uri`
+- Create a .env file in the root directory and set the required environment variables.
+  You can find a template in `.env.example`
 - Start the server: `npm run dev`
 
 ## Usage
@@ -33,7 +34,8 @@ Make sure you have the following installed:
 
 - Login: Authenticate users and retrieve a JWT.
 - User Operations: Create, delete, and retrieve users.
-- Task Operations: Assign and retrieve tasks for users, delete tasks.
+- EULA Operations: Create, delete, retrieve and assign EULAS for users.
+- AI Interaction: Send user queries to the OpenAI API and retrieve generated responses, store question and response in mongoDB.
 
 Sample Queries
 
@@ -92,7 +94,7 @@ I chose to build my project with MongoDB and GraphQL not because of the data-str
 
 ### 2. Explain what the different technologies (eg tools, npm packages, etc.) do in the application
 
-Dependencies
+#### Dependencies
 
 - @graphql-tools/schema: A utility for creating GraphQL schemas using the schema-first approach, allowing you to build your schema using SDL (Schema Definition Language) and resolvers.
 - @types/bcrypt: TypeScript definitions for the bcrypt library, which allows you to use bcrypt in a TypeScript project with proper type checking.
@@ -106,8 +108,9 @@ Dependencies
 - graphql: The core GraphQL library, providing the necessary functionality to define GraphQL schemas, types, and operations.
 - jsonwebtoken: A library for generating and verifying JSON Web Tokens (JWT), commonly used for authentication and information exchange.
 - mongoose: An Object Data Modeling (ODM) library for MongoDB and Node.js, providing a schema-based solution to model your application data.
+- openai: A client library for interacting with the OpenAI API, allowing the application to generate AI responses based on user input.
 
-DevDependencies
+#### DevDependencies
 
 - @types/cors: TypeScript definitions for the cors library, enabling type checking and IntelliSense for CORS middleware in TypeScript projects.
 - @types/express: TypeScript definitions for the Express framework, allowing for type safety and improved development experience.
@@ -164,4 +167,4 @@ Development Tools:
   I used `tsx` to run the project without compiling, which speeded things up. I ran `build` to compile to my dist folder in addition to code in the file: fix-import-extensions.js for solving the problem with node.js not understanding imports from files.
 
 Summary
-Basically, my application provides a robust backend for managing users and tasks, using the power of GraphQL for flexible data querying, while ensuring security and data integrity through authentication, authorization, and input validation.
+Basically, my application provides a robust backend for managing users and tasks, using the power of GraphQL for flexible data querying, while ensuring security and data integrity through authentication, authorization, and input validation.  The integration with the OpenAI API allows the application to generate intelligent responses based on user queries, enhancing its overall functionality.

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { gql, request, Variables } from 'graphql-request';
+import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { request, gql, Variables } from 'graphql-request';
+import FolderIcon from '../components/FolderSVG';
 import SpeedometerSVG from '../components/spedometer';
 import classes from '../css/eulaChecker.module.css';
-import FolderIcon from '../components/FolderSVG';
 
 type AIResponseData = {
   aiResponse: {
@@ -33,17 +33,12 @@ type EulaData = {
 function EulaChecker() {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
-  // const [speed] = useState(50);
   const [reasonablenessScore, setReasonablenessScore] = useState<number>(0); // Initialize speed with a default value
-
   const [eulas, setEulas] = useState<Eula[]>([]);
   const [activeFolders, setActiveFolders] = useState<{
     [key: string]: boolean;
   }>({});
-  const [fileContent, setFileContent] = useState<string | null>(null);
-
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
-
   const fetchEulas = async () => {
     const query = gql`
       query GetAllEulas {
@@ -56,14 +51,11 @@ function EulaChecker() {
         }
       }
     `;
-
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found. User might need to log in.');
-      // Redirect to login page or handle unauthorized state
       return;
     }
-
     try {
       const data = await request<EulaData, Variables>(
         'http://localhost:4000/graphql',
@@ -71,33 +63,26 @@ function EulaChecker() {
         {},
         { Authorization: `Bearer ${token}` }
       );
-
+      console.log(data.getAllEulas);
       setEulas(data.getAllEulas);
     } catch (error) {
       console.error('Error fetching EULAs', error);
       if (error instanceof Error && error.message.includes('Unauthorized')) {
-        // Handle unauthorized error (e.g., redirect to login)
         console.log('Token might be expired. Redirecting to login...');
-        // Implement redirect logic here
       }
     }
   };
-
   useEffect(() => {
     fetchEulas();
   }, []);
-
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setQuestion(event.target.value);
   };
-
   const handleSubmit = async () => {
     let fullQuestion = question;
-
     if (activeEula) {
       fullQuestion += `\nEULA Description: ${activeEula.description}`;
     }
-
     const query = gql`
       mutation AuthenticatorResponse($question: String!) {
         aiResponse(question: $question) {
@@ -106,21 +91,17 @@ function EulaChecker() {
         }
       }
     `;
-
     try {
       const data = await request<AIResponseData>(
         'http://localhost:4000/graphql',
         query,
         { question: fullQuestion },
         {
-          credentials: 'include', // Ensures cookies are sent with requests
+          credentials: 'include',
         }
       );
       setResponse(data.aiResponse.response);
-
-      // Set speed based on reasonableness score
       const reasonablenessScore = data.aiResponse.reasonablenessScore;
-
       console.log(`EULA Reasonableness Score: ${reasonablenessScore}`);
       setReasonablenessScore(reasonablenessScore);
     } catch (error) {
@@ -130,12 +111,10 @@ function EulaChecker() {
 
   const onDrop = async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
-
     if (file && file.type === 'text/plain') {
       const reader = new FileReader();
       reader.onload = async (e) => {
         const text = e.target?.result?.toString() || '';
-        setFileContent(text);
         await saveEulaToDB(text, file.name);
       };
       reader.readAsText(file);
@@ -157,7 +136,6 @@ function EulaChecker() {
         }
       }
     `;
-
     try {
       await request<AddEulaData>('http://localhost:4000/graphql', mutation, {
         title: fileName,
@@ -179,7 +157,6 @@ function EulaChecker() {
     `;
     const token = localStorage.getItem('token');
     if (!token) return;
-
     try {
       await request(
         'http://localhost:4000/graphql',
@@ -241,12 +218,17 @@ function EulaChecker() {
                   }`}
                   active={activeFolders[eula.id]}
                 />
-
                 <div>
                   <h3>{eula.title}</h3>
                   {/* <p>{eula.description}</p> */}
                   <p>Status: {eula.status}</p>
-                  <p>Created at: {new Date(eula.createdAt).toLocaleString()}</p>
+                  <p>
+                    Created at:{' '}
+                    {new Date(Number(eula.createdAt)).toString() !==
+                    'Invalid Date'
+                      ? new Date(Number(eula.createdAt)).toLocaleString()
+                      : 'N/A'}
+                  </p>
                   <button
                     onClick={() => deleteEula(eula.id)}
                     className={classes['delete-button']}
@@ -261,7 +243,6 @@ function EulaChecker() {
           <p>No EULAs uploaded yet.</p>
         )}
       </div>
-
       <div className={classes['eula-checker-wrapper']}>
         <div className={classes['eulareader-container']}>
           {activeEula ? (
@@ -269,7 +250,6 @@ function EulaChecker() {
               <h3>{activeEula.title}</h3>
               <p>{activeEula.description}</p>
               <p>Status: {activeEula.status}</p>
-              {/* <p>Created at: {new Date(eula.createdAt).toLocaleString()}</p> */}
             </div>
           ) : (
             <p>Please select a EULA to the left, or upload a new .txt-file.</p>
@@ -292,7 +272,6 @@ function EulaChecker() {
               id='question'
               rows={5}
             />
-
             <button onClick={handleSubmit} className={classes['submit-button']}>
               Send
             </button>

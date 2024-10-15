@@ -39,7 +39,7 @@
   border-radius: 4px;
   font-size: 14px;
   box-sizing: border-box;
-  overflow: auto; /* Ensure scrollbars appear if needed */
+  overflow: auto;
   padding: 1rem;
   background-color: rgb(233, 240, 253);
 }
@@ -74,12 +74,10 @@
 }
 
 .dropzone-wrapper {
-  position: relative; /* Allow the dropzone to be positioned relative to this wrapper */
-  
+  position: relative;
 }
 
 .dropzone {
-  
   margin: 0 auto;
   border: 2px dashed #000;
   padding: 30px;
@@ -90,7 +88,6 @@
   border-radius: 8px;
   background-color: rgb(233, 240, 253);
   max-height: 5.5rem;
-  
 }
 
 .dropzone.active {
@@ -117,16 +114,7 @@
 }
 
 .eula-list li {
-  /* max-height: 5rem;
-  overflow-y: hidden;
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  background-color: rgb(177, 170, 170);
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem; */
-  position: relative; /* Set the position to relative to position child elements absolutely */
+  position: relative;
   max-height: 5rem;
   overflow-y: hidden;
   display: flex;
@@ -140,9 +128,8 @@
 
 .eula-list h3 {
   margin-left: 1rem;
-
-  /* text-align: left; */
 }
+
 .eula-list h2 {
   padding: 0.5rem 1rem 0.2rem 1rem;
 }
@@ -203,12 +190,11 @@
 
 .eulareader-container {
   margin: 0 auto;
-  background-color: #eef; /* You can style this container as needed */
+  background-color: #eef;
   padding: 20px;
-  margin-bottom: 20px; /* Add space between the eulareader and eulachecker */
-  height: 30vh; /* Set the height of the container */
+  margin-bottom: 20px;
+  height: 30vh;
   overflow: scroll;
-
   max-width: 60vw;
   min-width: 60vw;
   margin-top: 4rem;

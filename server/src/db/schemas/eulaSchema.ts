@@ -1,6 +1,12 @@
 console.log('Reading eulaSchema.ts');
 
-import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString,
+  GraphQLList,
+  GraphQLID,
+} from 'graphql';
 import { eulaResolvers } from '../controllers/eulaResolvers';
 
 export const EulaType = new GraphQLObjectType({
