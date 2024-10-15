@@ -34,7 +34,7 @@ function EulaChecker() {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
   // const [speed] = useState(50);
-  const [speed, setSpeed] = useState<number>(50); // Initialize speed with a default value
+  const [reasonablenessScore, setReasonablenessScore] = useState<number>(0); // Initialize speed with a default value
 
   const [eulas, setEulas] = useState<Eula[]>([]);
   const [activeFolders, setActiveFolders] = useState<{
@@ -87,7 +87,7 @@ function EulaChecker() {
     fetchEulas();
   }, []);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setQuestion(event.target.value);
   };
 
@@ -120,22 +120,9 @@ function EulaChecker() {
 
       // Set speed based on reasonableness score
       const reasonablenessScore = data.aiResponse.reasonablenessScore;
-      let calculatedSpeed = 0;
 
-      if (reasonablenessScore >= 80) {
-        calculatedSpeed = 80; // Very reasonable
-      } else if (reasonablenessScore >= 50) {
-        calculatedSpeed = 50; // Moderately reasonable
-      } else if (reasonablenessScore >= 30) {
-        calculatedSpeed = 30; // Questionable
-      } else {
-        calculatedSpeed = 1; // Unreasonable
-      }
-
-      console.log(
-        `EULA Reasonableness Score: ${reasonablenessScore}, Speed: ${calculatedSpeed}`
-      );
-      setSpeed(calculatedSpeed);
+      console.log(`EULA Reasonableness Score: ${reasonablenessScore}`);
+      setReasonablenessScore(reasonablenessScore);
     } catch (error) {
       console.error('Error fetching AI response', error);
     }
@@ -152,6 +139,7 @@ function EulaChecker() {
         await saveEulaToDB(text, file.name);
       };
       reader.readAsText(file);
+      fetchEulas();
     } else {
       console.error('Please drop a .txt file');
     }
@@ -181,6 +169,30 @@ function EulaChecker() {
     }
   };
 
+  const deleteEula = async (id: string) => {
+    const mutation = gql`
+      mutation DeleteEula($id: ID!) {
+        deleteEula(id: $id) {
+          id
+        }
+      }
+    `;
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      await request(
+        'http://localhost:4000/graphql',
+        mutation,
+        { id },
+        { Authorization: `Bearer ${token}` }
+      );
+      setEulas((prevEulas) => prevEulas.filter((eula) => eula.id !== id));
+    } catch (error) {
+      console.error('Error deleting EULA', error);
+    }
+  };
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'text/plain': ['.txt'] },
@@ -202,6 +214,18 @@ function EulaChecker() {
   return (
     <>
       <div className={classes['eula-list']}>
+        <div
+          {...getRootProps({
+            className: `${classes.dropzone} ${
+              isDragActive ? classes.active : ''
+            }`,
+          })}
+        >
+          <input {...getInputProps()} />
+          {isDragActive
+            ? 'Drop here'
+            : 'Drag and drop a .txt file here, or click to select a file'}
+        </div>
         <h2>Your EULAs</h2>
         {eulas.length > 0 ? (
           <ul>
@@ -220,9 +244,15 @@ function EulaChecker() {
 
                 <div>
                   <h3>{eula.title}</h3>
-                  <p>{eula.description}</p>
+                  {/* <p>{eula.description}</p> */}
                   <p>Status: {eula.status}</p>
                   <p>Created at: {new Date(eula.createdAt).toLocaleString()}</p>
+                  <button
+                    onClick={() => deleteEula(eula.id)}
+                    className={classes['delete-button']}
+                  >
+                    x
+                  </button>
                 </div>
               </li>
             ))}
@@ -232,53 +262,48 @@ function EulaChecker() {
         )}
       </div>
 
-      <div className={classes['eulachecker-container']}>
-        <div className={classes['eulachecker-header']}>
-          <h1>EULA-CHECKER</h1>
-          <SpeedometerSVG percentage={speed} />
+      <div className={classes['eula-checker-wrapper']}>
+        <div className={classes['eulareader-container']}>
+          {activeEula ? (
+            <div>
+              <h3>{activeEula.title}</h3>
+              <p>{activeEula.description}</p>
+              <p>Status: {activeEula.status}</p>
+              {/* <p>Created at: {new Date(eula.createdAt).toLocaleString()}</p> */}
+            </div>
+          ) : (
+            <p>Please select a EULA to the left, or upload a new .txt-file.</p>
+          )}
         </div>
 
-        <div className={classes['eulachecker-form']}>
-          <label htmlFor='question'>
-            <input
-              placeholder='Ask your question'
-              type='text'
+        <div className={classes['eulachecker-container']}>
+          <div className={classes['eulachecker-header']}>
+            <h1>EULA-CHECKER</h1>
+            <SpeedometerSVG percentage={reasonablenessScore} />
+          </div>
+
+          <div className={classes['eulachecker-form']}>
+            <label htmlFor='question'></label>
+            <textarea
+              placeholder='Is this eula reasonable?'
               className={classes['form-input']}
               value={question}
               onChange={handleInputChange}
               id='question'
+              rows={5}
             />
-          </label>
-          <button onClick={handleSubmit} className={classes['submit-button']}>
-            Send
-          </button>
-          {response && (
-            <div>
-              <h2>Svar:</h2>
-              <p>{response}</p>
-            </div>
-          )}
-        </div>
 
-        <div
-          {...getRootProps({
-            className: `${classes.dropzone} ${
-              isDragActive ? classes.active : ''
-            }`,
-          })}
-        >
-          <input {...getInputProps()} />
-          {isDragActive
-            ? 'Drop here'
-            : 'Drag and drop a .txt file here, or click to select a file'}
-        </div>
-
-        {fileContent && (
-          <div className={classes['fileContent']}>
-            <h2>File Content</h2>
-            <pre>{fileContent}</pre>
+            <button onClick={handleSubmit} className={classes['submit-button']}>
+              Send
+            </button>
+            {response && (
+              <div>
+                <h2>Svar:</h2>
+                <p className={classes['response']}>{response}</p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </>
   );

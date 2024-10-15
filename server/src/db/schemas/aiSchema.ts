@@ -1,4 +1,9 @@
-import { GraphQLString, GraphQLObjectType, GraphQLSchema, GraphQLInt } from 'graphql';
+import {
+  GraphQLString,
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLInt,
+} from 'graphql';
 import { getAIResponse } from '../ai';
 import { AiModel } from '../models/aiModels';
 
@@ -10,6 +15,48 @@ export const aiResponseType = new GraphQLObjectType({
   },
 });
 
+function calculateReasonableness(response: string): number {
+  const lowerResponse = response.toLowerCase();
+  console.log('Lower response:', lowerResponse);
+  let score = 50; // Default moderate score
+
+  if (
+    lowerResponse.includes('horrible') ||
+    lowerResponse.includes('terrible') ||
+    lowerResponse.includes('bad') ||
+    lowerResponse.includes('invasive')
+  ) {
+    score -= 50; // Strong negative sentiment
+    console.log(1111);
+  }
+  if (
+    lowerResponse.includes('unfair') ||
+    lowerResponse.includes('problematic')
+  ) {
+    score -= 30; // Moderate negative sentiment
+    console.log(2222);
+  }
+  if (
+    lowerResponse
+      .split(' ')
+      .find((string) => string === 'fair' || string === 'reasonable')
+  ) {
+    score += 30; // Moderate positive sentiment
+    console.log(3333);
+  }
+  if (lowerResponse.includes('very fair')) {
+    score += 10; // Strong positive sentiment
+    console.log(4444);
+  }
+  if (lowerResponse.includes('very unfair')) {
+    score -= 10; // Slightly strong negative sentiment
+    console.log(5555);
+  }
+  console.log(lowerResponse);
+  // Clamp the score between 0 and 100
+  return Math.max(0, Math.min(score, 100));
+}
+
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
@@ -18,34 +65,27 @@ const Mutation = new GraphQLObjectType({
       args: {
         question: { type: GraphQLString },
       },
+
       resolve: async (_: any, args: { [key: string]: any }) => {
         try {
           const question = args.question;
           const response = await getAIResponse(question);
-
-          function calculateReasonableness(response: string): number {
-            if (response.toLowerCase().includes("unfair")) {
-              return 30;
-            } else if (response.toLowerCase().includes("fair")) {
-              return 80;
-            }
-            return 50;
-          }
+          console.log('AI resonse:', response);
 
           if (response === null) {
-            // Handle null response, e.g., return a default value
             return {
-              response: "No response received from AI.",
-              reasonablenessScore: 0, // or any default speed value
+              response: 'No response received from AI.',
+              reasonablenessScore: 0,
             };
           }
 
-          const reasonablenessScore = calculateReasonableness(response); // Store as number
+          const reasonablenessScore = calculateReasonableness(response);
+          console.log('Calculated Reasonableness Score:', reasonablenessScore);
 
           await AiModel.create({
             userQuery: question,
             aiResponse: response,
-            speed: reasonablenessScore.toString(), // You can store this if needed
+            reasonablenessScore: reasonablenessScore.toString(),
           });
 
           return { response, reasonablenessScore };

@@ -68,6 +68,8 @@ export const eulaResolvers = {
         description: args.description,
         status: args.status,
         createdAt: new Date().toISOString(),
+        //         const swedenTime = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
+        // const createdAt = swedenTime;
       });
       return eula.save();
     },
