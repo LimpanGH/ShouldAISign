@@ -33,12 +33,13 @@ function EulaChecker() {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
   const [speed] = useState(50);
-  const [eulas, setEulas] = useState<Eula[]>([]);
+  const [eulas, setEulas] = useState<Eula[]>([]); 
   const [activeFolders, setActiveFolders] = useState<{
     [key: string]: boolean;
   }>({});
-
   const [fileContent, setFileContent] = useState<string | null>(null);
+
+  const [activeEula, setActiveEula] = useState<Eula | null>(null);
 
   const fetchEulas = async () => {
     const query = gql`
@@ -88,6 +89,12 @@ function EulaChecker() {
   };
 
   const handleSubmit = async () => {
+    let fullQuestion = question;
+    
+    if (activeEula) {
+      fullQuestion += `\nEULA Description: ${activeEula.description}`;
+    }
+
     const query = gql`
       mutation AuthenticatorResponse($question: String!) {
         aiResponse(question: $question) {
@@ -100,7 +107,7 @@ function EulaChecker() {
       const data = await request<AIResponseData>(
         'http://localhost:4000/graphql',
         query,
-        { question },
+        { question: fullQuestion },
         {
           credentials: 'include', // Ensures cookies are sent with requests
         }
@@ -157,6 +164,8 @@ function EulaChecker() {
   });
 
   const toggleFolderColor = (id: string) => {
+    const selectedEula = eulas.find((eula) => eula.id === id);
+    setActiveEula(selectedEula || null);
     setActiveFolders((prev) => ({
       ...prev,
       [id]: !prev[id],
@@ -199,6 +208,9 @@ function EulaChecker() {
           <p>No EULAs uploaded yet.</p>
         )}
       </div>
+
+
+ 
       <div className={classes['eulachecker-container']}>
         <div className={classes['eulachecker-header']}>
           <h1>EULA-CHECKER</h1>
