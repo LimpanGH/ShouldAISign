@@ -1,9 +1,4 @@
-import {
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLSchema,
-} from 'graphql';
+import { GraphQLString, GraphQLObjectType, GraphQLSchema, GraphQLInt } from 'graphql';
 import { getAIResponse } from '../ai';
 import { AiModel } from '../models/aiModels';
 
@@ -11,34 +6,51 @@ export const aiResponseType = new GraphQLObjectType({
   name: 'AIResponse',
   fields: {
     response: { type: GraphQLString },
+    reasonablenessScore: { type: GraphQLInt },
   },
 });
 
-// Define the Mutation for AI Response
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     aiResponse: {
-      type: aiResponseType, // Return type is a String (AI response)
+      type: aiResponseType,
       args: {
-        question: { type: GraphQLString }, // Input argument
+        question: { type: GraphQLString },
       },
       resolve: async (_: any, args: { [key: string]: any }) => {
         try {
-          // Extract the question from args
           const question = args.question;
-
-          // Get AI Response
           const response = await getAIResponse(question);
 
-          // Save the question and AI response to the database
+          function calculateReasonableness(response: string): number {
+            if (response.toLowerCase().includes("unfair")) {
+              return 30;
+            } else if (response.toLowerCase().includes("fair")) {
+              return 80;
+            }
+            return 50;
+          }
+
+          if (response === null) {
+            // Handle null response, e.g., return a default value
+            return {
+              response: "No response received from AI.",
+              reasonablenessScore: 0, // or any default speed value
+            };
+          }
+
+          const reasonablenessScore = calculateReasonableness(response); // Store as number
+
           await AiModel.create({
             userQuery: question,
             aiResponse: response,
+            speed: reasonablenessScore.toString(), // You can store this if needed
           });
 
-          return { response }; // Return the AI's response
+          return { response, reasonablenessScore };
         } catch (error) {
+          console.error('Error in AI response mutation:', error);
           throw new Error('Error fetching AI response');
         }
       },
@@ -46,7 +58,6 @@ const Mutation = new GraphQLObjectType({
   },
 });
 
-// Export the complete schema
 export const aiSchema = new GraphQLSchema({
-  mutation: Mutation, // Attach the mutation to the schema
+  mutation: Mutation,
 });

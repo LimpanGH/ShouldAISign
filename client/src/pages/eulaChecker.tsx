@@ -8,6 +8,7 @@ import FolderIcon from '../components/FolderSVG';
 type AIResponseData = {
   aiResponse: {
     response: string;
+    reasonablenessScore: number;
   };
 };
 
@@ -32,8 +33,10 @@ type EulaData = {
 function EulaChecker() {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
-  const [speed] = useState(50);
-  const [eulas, setEulas] = useState<Eula[]>([]); 
+  // const [speed] = useState(50);
+  const [speed, setSpeed] = useState<number>(50); // Initialize speed with a default value
+
+  const [eulas, setEulas] = useState<Eula[]>([]);
   const [activeFolders, setActiveFolders] = useState<{
     [key: string]: boolean;
   }>({});
@@ -90,7 +93,7 @@ function EulaChecker() {
 
   const handleSubmit = async () => {
     let fullQuestion = question;
-    
+
     if (activeEula) {
       fullQuestion += `\nEULA Description: ${activeEula.description}`;
     }
@@ -99,6 +102,7 @@ function EulaChecker() {
       mutation AuthenticatorResponse($question: String!) {
         aiResponse(question: $question) {
           response
+          reasonablenessScore
         }
       }
     `;
@@ -113,6 +117,25 @@ function EulaChecker() {
         }
       );
       setResponse(data.aiResponse.response);
+
+      // Set speed based on reasonableness score
+      const reasonablenessScore = data.aiResponse.reasonablenessScore;
+      let calculatedSpeed = 0;
+
+      if (reasonablenessScore >= 80) {
+        calculatedSpeed = 80; // Very reasonable
+      } else if (reasonablenessScore >= 50) {
+        calculatedSpeed = 50; // Moderately reasonable
+      } else if (reasonablenessScore >= 30) {
+        calculatedSpeed = 30; // Questionable
+      } else {
+        calculatedSpeed = 1; // Unreasonable
+      }
+
+      console.log(
+        `EULA Reasonableness Score: ${reasonablenessScore}, Speed: ${calculatedSpeed}`
+      );
+      setSpeed(calculatedSpeed);
     } catch (error) {
       console.error('Error fetching AI response', error);
     }
@@ -209,8 +232,6 @@ function EulaChecker() {
         )}
       </div>
 
-
- 
       <div className={classes['eulachecker-container']}>
         <div className={classes['eulachecker-header']}>
           <h1>EULA-CHECKER</h1>
@@ -264,4 +285,3 @@ function EulaChecker() {
 }
 
 export default EulaChecker;
-
