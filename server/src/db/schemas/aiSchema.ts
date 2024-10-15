@@ -1,8 +1,8 @@
 import {
   GraphQLString,
-  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
+  GraphQLInt,
 } from 'graphql';
 import { getAIResponse } from '../ai';
 import { AiModel } from '../models/aiModels';
@@ -11,34 +11,86 @@ export const aiResponseType = new GraphQLObjectType({
   name: 'AIResponse',
   fields: {
     response: { type: GraphQLString },
+    reasonablenessScore: { type: GraphQLInt },
   },
 });
 
-// Define the Mutation for AI Response
+function calculateReasonableness(response: string): number {
+  const lowerResponse = response.toLowerCase();
+  console.log('Lower response:', lowerResponse);
+  let score = 50; // Default moderate score
+
+  if (
+    lowerResponse.includes('horrible') ||
+    lowerResponse.includes('terrible') ||
+    lowerResponse.includes('bad') ||
+    lowerResponse.includes('invasive')
+  ) {
+    score -= 50; // Strong negative sentiment
+    console.log(1111);
+  }
+  if (
+    lowerResponse.includes('unfair') ||
+    lowerResponse.includes('problematic')
+  ) {
+    score -= 30; // Moderate negative sentiment
+    console.log(2222);
+  }
+  if (
+    lowerResponse
+      .split(' ')
+      .find((string) => string === 'fair' || string === 'reasonable')
+  ) {
+    score += 30; // Moderate positive sentiment
+    console.log(3333);
+  }
+  if (lowerResponse.includes('very fair')) {
+    score += 10; // Strong positive sentiment
+    console.log(4444);
+  }
+  if (lowerResponse.includes('very unfair')) {
+    score -= 10; // Slightly strong negative sentiment
+    console.log(5555);
+  }
+  console.log(lowerResponse);
+  // Clamp the score between 0 and 100
+  return Math.max(0, Math.min(score, 100));
+}
+
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     aiResponse: {
-      type: aiResponseType, // Return type is a String (AI response)
+      type: aiResponseType,
       args: {
-        question: { type: GraphQLString }, // Input argument
+        question: { type: GraphQLString },
       },
+
       resolve: async (_: any, args: { [key: string]: any }) => {
         try {
-          // Extract the question from args
           const question = args.question;
-
-          // Get AI Response
           const response = await getAIResponse(question);
+          console.log('AI resonse:', response);
 
-          // Save the question and AI response to the database
+          if (response === null) {
+            return {
+              response: 'No response received from AI.',
+              reasonablenessScore: 0,
+            };
+          }
+
+          const reasonablenessScore = calculateReasonableness(response);
+          console.log('Calculated Reasonableness Score:', reasonablenessScore);
+
           await AiModel.create({
             userQuery: question,
             aiResponse: response,
+            reasonablenessScore: reasonablenessScore.toString(),
           });
 
-          return { response }; // Return the AI's response
+          return { response, reasonablenessScore };
         } catch (error) {
+          console.error('Error in AI response mutation:', error);
           throw new Error('Error fetching AI response');
         }
       },
@@ -46,7 +98,6 @@ const Mutation = new GraphQLObjectType({
   },
 });
 
-// Export the complete schema
 export const aiSchema = new GraphQLSchema({
-  mutation: Mutation, // Attach the mutation to the schema
+  mutation: Mutation,
 });

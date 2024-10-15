@@ -19,6 +19,9 @@
 
 .eulachecker-form {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .eulachecker-form label {
@@ -31,11 +34,14 @@
 .eulachecker-form .form-input {
   width: 50%;
   padding: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 2rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
   box-sizing: border-box;
+  overflow: auto;
+  padding: 1rem;
+  background-color: rgb(233, 240, 253);
 }
 
 .eulachecker-form .form-input:focus {
@@ -67,14 +73,21 @@
   border-color: red;
 }
 
+.dropzone-wrapper {
+  position: relative;
+}
+
 .dropzone {
-  width: 30vw;
   margin: 0 auto;
   border: 2px dashed #000;
-  padding: 20px;
-  /* margin-top: 20px; */
+  padding: 30px;
   text-align: center;
   transition: transform 0.2s;
+  max-width: fit-content;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background-color: rgb(233, 240, 253);
+  max-height: 5.5rem;
 }
 
 .dropzone.active {
@@ -83,4 +96,151 @@
 
 .file-content {
   margin-top: 20px;
+}
+
+.eula-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  width: 30%;
+  overflow-y: auto;
+  height: 70vh;
+}
+
+.eula-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.eula-list li {
+  position: relative;
+  max-height: 5rem;
+  overflow-y: hidden;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  background-color: rgb(177, 170, 170);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.eula-list h3 {
+  margin-left: 1rem;
+}
+
+.eula-list h2 {
+  padding: 0.5rem 1rem 0.2rem 1rem;
+}
+
+.eula-list p {
+  margin-left: 1rem;
+  text-align: left;
+}
+
+.eulachecker-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.eulachecker-form,
+.dropzone {
+  flex: 1;
+}
+
+.folder-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.folder-icon path {
+  fill: #fbbc1a;
+}
+
+.folder-icon.active path {
+  fill: blue;
+}
+
+.eula-cards {
+  border: 1px solid #ccc;
+}
+
+.eula-list li > div {
+  flex: 1;
+  overflow: hidden;
+  min-width: 25rem;
+}
+
+.eula-list li h3,
+.eula-list li p {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.eula-checker-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.eulareader-container {
+  margin: 0 auto;
+  background-color: #eef;
+  padding: 20px;
+  margin-bottom: 20px;
+  height: 30vh;
+  overflow: scroll;
+  max-width: 60vw;
+  min-width: 60vw;
+  margin-top: 4rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.eulachecker-container {
+  min-width: 70vw;
+  min-height: 50vh;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.response {
+  margin: 0 auto;
+  width: 40vw;
+  height: auto;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.response h2 {
+  text-align: center;
+  margin-top: 33rem;
+}
+
+.delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 7px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: darkred;
 }
