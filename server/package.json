@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/index.ts",
     "build": "tsc && node fix-import-extensions.js",
-    "start": "NODE_DEBUG=module node ./dist/index.js",
+    "start": "node ./dist/index.js",
     "tsx": "tsx watch src/ai/ai.ts"
   },
   "keywords": [],

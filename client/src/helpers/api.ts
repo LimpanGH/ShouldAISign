@@ -1,7 +1,10 @@
 export const makeGraphQLRequest = async <T>(query: string, variables: T) => {
   const token = localStorage.getItem('token');
+  const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
 
-  const response = await fetch('http://localhost:4000/graphql', {
+
+  // const response = await fetch('http://localhost:4000/graphql', {
+  const response = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
