@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classes from '../css/NavBar.module.css';
+import logo from '../assets/logo.svg';
 
 const Navbar: React.FC = () => {
   const jwtToken = 'token';
@@ -21,7 +22,8 @@ const Navbar: React.FC = () => {
     <nav className={classes['navbar-container']}>
       <div className={classes['navbar-logo']}>
         <Link to='/'>
-          <img src='../src/assets/logo.svg' alt='logo' />
+          {/* <img src='../src/assets/logo.svg' alt='logo' /> */}
+          <img src={logo} alt='logo' />
         </Link>
         <Link to='/'>ShouldAISign</Link>
       </div>

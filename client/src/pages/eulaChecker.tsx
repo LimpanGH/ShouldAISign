@@ -42,6 +42,14 @@ function EulaChecker() {
     [key: string]: boolean;
   }>({});
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
+
+  // const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
+  const apiUrl = import.meta.env.VITE_API_URL; 
+
+  if (!apiUrl) {
+    throw new Error('API URL is not defined');
+  }
+
   
   const fetchEulas = async () => {
     const query = gql`
@@ -62,7 +70,8 @@ function EulaChecker() {
     }
     try {
       const data = await request<EulaData, Variables>(
-        'http://localhost:4000/graphql',
+        // 'http://localhost:4000/graphql',
+        apiUrl,
         query,
         {},
         { Authorization: `Bearer ${token}` }
@@ -97,7 +106,8 @@ function EulaChecker() {
     `;
     try {
       const data = await request<AIResponseData>(
-        'http://localhost:4000/graphql',
+        // 'http://localhost:4000/graphql',
+         apiUrl,
         query,
         { question: fullQuestion },
         {
@@ -141,7 +151,10 @@ function EulaChecker() {
       }
     `;
     try {
-      await request<AddEulaData>('http://localhost:4000/graphql', mutation, {
+      await request<AddEulaData>(
+         // 'http://localhost:4000/graphql',
+         apiUrl,
+        mutation, {
         title: fileName,
         description: text,
         status: 'uploaded',
@@ -163,7 +176,8 @@ function EulaChecker() {
     if (!token) return;
     try {
       await request(
-        'http://localhost:4000/graphql',
+         // 'http://localhost:4000/graphql',
+         apiUrl,
         mutation,
         { id },
         { Authorization: `Bearer ${token}` }

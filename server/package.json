@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/index.ts",
     "build": "tsc && node fix-import-extensions.js",
-    "start": "NODE_DEBUG=module node ./dist/index.js",
+    "start": "node ./dist/index.js",
     "tsx": "tsx watch src/ai/ai.ts"
   },
   "keywords": [],
@@ -34,6 +34,7 @@
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.5.4",
+    "env-cmd": "^10.1.0",
     "replace-in-file": "^8.1.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.1",

@@ -1,11 +1,13 @@
 import classes from '../css/Home.module.css';
+import heroImg from '../assets/eula1.jpeg';
 
 const Home = () => {
   return (
     <div className={classes['home-container']}>
-      <h1>Home</h1>
+      
       <img
-        src='../src/assets/eula1.jpeg'
+        // src='../src/assets/eula1.jpeg'
+        src={heroImg}
         alt='Eula hero image'
         className={classes['hero']}
       />
