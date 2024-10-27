@@ -42,7 +42,13 @@ function EulaChecker() {
     [key: string]: boolean;
   }>({});
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
-  const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
+
+  // const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
+  const apiUrl = import.meta.env.VITE_API_URL; 
+
+  if (!apiUrl) {
+    throw new Error('API URL is not defined');
+  }
 
   
   const fetchEulas = async () => {

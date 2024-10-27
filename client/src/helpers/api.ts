@@ -1,6 +1,11 @@
 export const makeGraphQLRequest = async <T>(query: string, variables: T) => {
   const token = localStorage.getItem('token');
-  const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
+  // const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  if (!apiUrl) {
+    throw new Error('API URL is not defined');
+  }
 
 
   // const response = await fetch('http://localhost:4000/graphql', {

@@ -43,7 +43,7 @@ const schema = mergeSchemas({
 app.use(
   cors({
     origin: (origin: string | undefined, callback) => {
-      if (!origin || ['http://54.221.26.10', 'http://54.221.26.10:5173'].includes(origin)) {
+            if (!origin || ['http://localhost:5173','http://54.221.26.10', 'http://54.221.26.10:5173'].includes(origin)) {
         callback(null, true);  // Allow the request if origin is one of the allowed or if it's undefined (e.g., from Postman)
       } else {
         callback(new Error('Not allowed by CORS'));  // Otherwise, reject the request
