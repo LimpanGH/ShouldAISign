@@ -37,16 +37,16 @@
 .contact-link {
   text-decoration: none;
   color: white;
-  background-color: #007bff;
+  background: #007bff;
   padding: 0.5rem 1.5rem;
   border-radius: 25px;
   font-size: 1.1rem;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background 0.3s, transform 0.2s;
   box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
 .contact-link:hover {
-  background-color: #0056b3;
+  background: #0056b3;
   transform: translateY(-2px);
 }
 

@@ -1,59 +1,155 @@
-import React from 'react';
+// https://reactrouter.com/en/main/components/nav-link
+
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classes from '../css/NavBar.module.css';
 import logo from '../assets/logo.svg';
 
+export const AUTH_EVENT = 'authStateChanged';
+
+// Create a utility to manage auth state
+export const AuthEvents = {
+  emit: (isAuthenticated: boolean) => {
+    const event = new CustomEvent(AUTH_EVENT, { detail: { isAuthenticated } });
+    window.dispatchEvent(event);
+  },
+};
+
 const Navbar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const jwtToken = 'token';
-  
+
+  useEffect(() => {
+    // Check initial authentication status
+    const token = localStorage.getItem(jwtToken);
+    setIsAuthenticated(!!token);
+
+    // Listen for authentication state changes
+    const handleAuthChange = (event: CustomEvent) => {
+      setIsAuthenticated(event.detail.isAuthenticated);
+    };
+
+    // Add event listener
+    window.addEventListener(AUTH_EVENT, handleAuthChange as EventListener);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener(AUTH_EVENT, handleAuthChange as EventListener);
+    };
+  }, []);
+
   function signOut() {
     const token = localStorage.getItem(jwtToken);
     if (!token) {
       alert('No user is currently signed in');
       return;
     }
-
     localStorage.removeItem(jwtToken);
-    alert('Sucessfully signed out');
-    window.location.href = '/signin';
+    setIsAuthenticated(false);
+    AuthEvents.emit(false);
+    alert('Successfully signed out');
+    window.location.href = '/';
   }
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <nav className={classes['navbar-container']}>
       <div className={classes['navbar-logo']}>
-        <Link to='/'>
-          {/* <img src='../src/assets/logo.svg' alt='logo' /> */}
+        <NavLink to='/'>
           <img src={logo} alt='logo' />
-        </Link>
+        </NavLink>
         <Link to='/'>ShouldAISign</Link>
       </div>
 
-      <ul className={classes['navbar-links']}>
-       
+      <div className={classes.hamburger} onClick={toggleMenu}>
+        <span className={isMenuOpen ? classes['line-active'] : ''}></span>
+        <span className={isMenuOpen ? classes['line-active'] : ''}></span>
+        <span className={isMenuOpen ? classes['line-active'] : ''}></span>
+      </div>
 
+      <ul
+        className={`${classes['navbar-links']} ${
+          isMenuOpen ? classes['active'] : ''
+        }`}
+      >
         <li>
-          <Link to='/'>Home</Link>
+          <NavLink
+            to='/'
+            className={({ isActive }) =>
+              isActive ? classes['active-link'] : classes['inactive-link']
+            }
+            onClick={toggleMenu}
+          >
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to='/about'>About</Link>
+          <NavLink
+            to='/eula-checker'
+            className={({ isActive }) =>
+              isActive ? classes['active-link'] : classes['inactive-link']
+            }
+            onClick={toggleMenu}
+          >
+            Eula Checker
+          </NavLink>
         </li>
+        
         <li>
-          <Link to='/signup'>Sign Up</Link>
+          <NavLink
+            to='/about'
+            className={({ isActive }) =>
+              isActive ? classes['active-link'] : classes['inactive-link']
+            }
+            onClick={toggleMenu}
+          >
+            About Me
+          </NavLink>
         </li>
-        <li>
-          <Link to='/signin'>Sign In</Link>
+        {/* <li>
+          <NavLink
+            to='/contact'
+            className={({ isActive }) =>
+              isActive ? classes['active-link'] : classes['inactive-link']
+            }
+          >
+            Contact
+          </NavLink>
+        </li> */}
+        {/* <li>
+          <NavLink
+            to='/cv-page'
+            className={({ isActive }) =>
+              isActive ? classes['active-link'] : classes['inactive-link']
+            }
+          >
+            CV
+          </NavLink>
+        </li> */}
+
+          <li>
+          <NavLink
+            to='/signIn'
+            className={({ isActive }) =>
+              isActive ? classes['active-link'] : classes['inactive-link']
+            }
+          >
+            Sign In
+          </NavLink>
         </li>
-        <li>
-          <Link to='/contact'>Contact</Link>
-        </li>
-        <li>
-          <Link to='/eula-checker'>Eula Checker</Link>
-        </li>
-        <li>
-          <button onClick={signOut} className={classes['signout-button']}>
-            Sign Out
-          </button>
-        </li>
+        
+        {isAuthenticated && (
+          <li>
+            <button onClick={signOut} className={classes['signout-button']}>
+              Sign Out
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

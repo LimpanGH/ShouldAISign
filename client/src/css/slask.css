@@ -1,0 +1,26 @@
+.blue {
+  height: 3rem;
+  background: rgb(27, 34, 60);
+  color: rgb(255, 255, 255);
+  /* color: rgb(171, 149, 121); */
+}
+.white {
+  height: 3rem;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.gray {
+  height: 3rem;
+  background: rgb(238, 233, 226);
+  color: rgb(18, 25, 40);
+  /* color: rgb(171, 149, 121); */
+}
+.gold {
+  height: 3rem;
+  background: rgb(171, 149, 121);
+}
+.black {
+  height: 3rem;
+  background: rgb(18, 25, 40);
+  color: rgb(255, 255, 255);
+}
