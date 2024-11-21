@@ -99,7 +99,7 @@ const Navbar: React.FC = () => {
             Eula Checker
           </NavLink>
         </li>
-        
+
         <li>
           <NavLink
             to='/about'
@@ -131,18 +131,19 @@ const Navbar: React.FC = () => {
             CV
           </NavLink>
         </li> */}
-
+        {!isAuthenticated && (
           <li>
-          <NavLink
-            to='/signIn'
-            className={({ isActive }) =>
-              isActive ? classes['active-link'] : classes['inactive-link']
-            }
-          >
-            Sign In
-          </NavLink>
-        </li>
-        
+            <NavLink
+              to='/signIn'
+              className={({ isActive }) =>
+                isActive ? classes['active-link'] : classes['inactive-link']
+              }
+            >
+              Sign In
+            </NavLink>
+          </li>
+        )}
+
         {isAuthenticated && (
           <li>
             <button onClick={signOut} className={classes['signout-button']}>

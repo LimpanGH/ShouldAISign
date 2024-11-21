@@ -194,8 +194,6 @@ const About = () => {
             eum iure deleniti aperiam inventore excepturi officiis et magni
             aliquid. Et delectus in odit, expedita quaerat nostrum fugit
             consectetur accusamus? Laborum dolor
-          </p>
-        </div>
         <div className={classes['test']}>
           <iframe
             className={classes['iframe']}
@@ -205,6 +203,8 @@ const About = () => {
             style={{ width: '100%', height: '100%' }}
             title='Demo Babster 2024-06-04'
           ></iframe>
+        </div>
+          </p>
         </div>
       </div>
 
@@ -235,17 +235,6 @@ const About = () => {
 
           </p>
           
-        </div>
-
-        <div className={classes['test']}>
-          <iframe
-            className={classes['iframe']}
-            src='https://player.vimeo.com/video/1029596745?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58480'
-            frameBorder='0'
-            allow='autoplay; fullscreen; picture-in-picture; clipboard-write'
-            style={{ width: '100%', height: '100%' }}
-            title='Demo CI/CD 2024-10-15'
-          ></iframe>
         </div>
       </div>
     // </div>

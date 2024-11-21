@@ -5,7 +5,7 @@
 // const SIGN_IN_MUTATION = `
 //   mutation login ($email: String!, $password: String!) {
 //     login(email: $email, password: $password) {
-//     token 
+//     token
 //     user {
 //       id
 //       email
@@ -47,9 +47,8 @@
 
 // export default SignInComponent;
 
-
 import { makeGraphQLRequest } from '../helpers/api';
-import { SignInFormData } from '../pages/SignIn';
+import { SignInFormData } from '../pages/User-account/SignIn';
 import { AuthEvents } from './NavBar';
 
 const SIGN_IN_MUTATION = `
@@ -65,7 +64,9 @@ const SIGN_IN_MUTATION = `
 `;
 
 const SignInComponent = {
-  handleSubmit: async (data: SignInFormData): Promise<{ token: string } | false> => {
+  handleSubmit: async (
+    data: SignInFormData
+  ): Promise<{ token: string } | false> => {
     const variables = {
       email: data.email,
       password: data.password,

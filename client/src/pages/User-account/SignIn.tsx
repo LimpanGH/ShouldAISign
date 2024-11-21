@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import SignInComponent from '../components/signInComponent';
-import classes from '../css/SignIn.module.css';
+import SignInComponent from '../../components/signInComponent';
+import classes from './SignIn.module.css';
 
 // import heroImg from '../assets/eula1.jpeg';
 
@@ -39,12 +39,12 @@ export const SignIn = () => {
     <>
       <div>
         {/* <img src={heroImg} alt='Eula hero image' className={classes['hero']} /> */}
-        <div className='primary-bg'>primary-bg</div>
+        {/* <div className='primary-bg'>primary-bg</div>
         <div className='secondary-bg'>secondary-bg</div>
         <div className='third-bg'>third-bg</div>
         <div className='fourth-bg'>fourth-bg</div>
         <div className='fifth-bg'>fifth-bg</div>
-        <div className='sixth-bg'>sixth-bg</div>
+        <div className='sixth-bg'>sixth-bg</div> */}
         {!isLoggedIn && (
           <div className={classes['signin-container']}>
             <div className={classes['signin-header']}>

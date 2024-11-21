@@ -371,9 +371,17 @@ p {
   .eula-list {
     position: static;
     height: auto;
-    transform: translateX(0); /* Sidebar always visible in desktop view */
+    transform: translateX(0); 
     width: 60%;
+    
+    z-index: 0;
   }
+
+  
+  
+  
+
+
 
   .kebab-menu {
     display: none;
