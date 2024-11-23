@@ -23,6 +23,9 @@
   --bg-seventh: linear-gradient(135deg, #2a9d8f, #21867a);
   --bg-eight: linear-gradient(135deg, #88d4c0, #91d5c1);
   --bg-test: linear-gradient(135deg, #88d4c0, #9bc7ba);
+  --bg-light-gradient: linear-gradient(135deg, #bdece2, #a8d9cf);
+
+
 
   /* Text -------------------- */
   --color-text-primary: rgb(255, 255, 255);
@@ -316,11 +319,11 @@ button {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
+} */
 
 .card {
   padding: 2em;

@@ -1,26 +1,512 @@
-.blue {
-  height: 3rem;
-  background: rgb(27, 34, 60);
-  color: rgb(255, 255, 255);
-  /* color: rgb(171, 149, 121); */
+<section className={classes['about-content']}>
+<div className={classes['shouldaisign-text']}>
+  <h1 className={classes.h1}>About Me</h1>
+  <p >
+    Hej! <br></br>Jag heter Linus Johannesson och läser Fullstack
+    Javascript på {''}
+    <a
+      className={classes['link']}
+      href='https://chasacademy.se/program/fullstackutvecklare-javascript'
+      target='_blank'
+    >
+      Chas Academy
+    </a>{' '}
+  </p>
+  i Stockholm. Jag söker Lia/praktik från Januari 2025. Jag drivs av att
+  bygga produkter tillsammans genom att hitta hållbara lösningar som
+  fungerar över tid och ger samhällsnytta. Jag har hög arbetsmoral och
+  vill äga mina uppgifter i en miljö där man främjar individens
+  kreativitet och utövar frihet under ansvar.
+  <p>
+    Jag är en stolt pappa till en dotter, fd sjukgymnast, vinnare av
+    Streetdance SM 2004 med min grupp, ex Paris-bo och gitarr-fantast.
+    På skolan har jag ofta tagit rollen som scrum-master och
+    arbetsledare när det behövts. Jag har även hållit ett flertal
+    Git-workshops på skolan då det fanns önskemål om det. På jobbet
+    uppskattar jag tydlighet, högt i tak och ett generöst givande och
+    tagande mellan mig, kollegor och arbetsgivare.{' '}
+  </p>{' '}
+  <p>
+    Jag har driv, och söker ett företag som vill förvalta det på ett bra
+    sätt. Med vänlig hälsning, Linus Johannesson{' '}
+  </p>
+  <br />
+  <a className={classes['link']} href='tel:+46707979238'>
+    070-7979238
+  </a>{' '}
+  <br />
+  <a className={classes['link']} href='mailto: Linusj555@gmail.com'>
+    Linusj555@gmail.com
+  </a>{' '}
+  <div className={classes['info-card']}>
+    <button className={classes['link-button']} onClick={openImageModal}>
+      My Tech Stack
+    </button>
+
+    {/* <button
+        className={classes['link-button']}
+        onClick={openVideoModal}
+        >
+        View demo of Babster
+        </button> */}
+
+    <button className={classes['link-button']} onClick={openPdfModal}>
+      View and download CV
+    </button>
+
+    {/* <button className={classes['link-button']} onClick={goToCVPage}>
+        View and download CV
+        </button> */}
+  </div>
+</div>
+</section>
+
+
+
+----------------------
+
+body {
+  height: 100vh;
+  margin: 0;
 }
-.white {
-  height: 3rem;
-  background: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+.link {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
 }
-.gray {
-  height: 3rem;
-  background: rgb(238, 233, 226);
-  color: rgb(18, 25, 40);
-  /* color: rgb(171, 149, 121); */
+
+.about-container {
+  /* background: linear-gradient(
+    to top,
+    rgba(149, 255, 0, 0.477),
+    rgba(0, 255, 132, 0.421)
+  ); */
+  /* margin: 3rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 15rem;
+  width: 100%;
+  /* padding: 1rem; */
+  box-sizing: border-box;
+  /* max-height: fit-content; */
 }
-.gold {
-  height: 3rem;
-  background: rgb(171, 149, 121);
+
+/* .about-container .about-content:nth-child(even) {
+  background: linear-gradient(to left, #88d4c0, rgba(0, 255, 132, 0.495));
 }
-.black {
-  height: 3rem;
-  background: rgb(18, 25, 40);
-  color: rgb(255, 255, 255);
+.about-container .about-content:nth-child(odd) {
+  background: linear-gradient(to right, #88d4c0, rgba(0, 255, 132, 0.506));
+} */
+
+.about-content {
+  padding-block: 5rem;
+  display: flex;
+  justify-content: center;
+  background: var(--bg-test);
+  /* background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #88d4c0 30%,
+    #88d4c0 70%,
+    transparent 100%
+  ); */
 }
+
+/* .text-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  margin: 1rem;
+} */
+
+/* .modal-pdfViewer {
+  width: 90vw; 
+  margin-top: 3rem;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: turquoise;
+} */
+
+.test {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: var(--margin-xlg);
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.video {
+  margin-top: 20px;
+}
+
+h1 {
+  margin-bottom: var(--margin-base);
+}
+
+.shouldaisign-text {
+  text-align: left;
+  margin-bottom: 3rem;
+  /* font-family: 'Arial', sans-serif; */
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-family: var(--system-font);
+  font-size: var(--font-size-medium);
+  line-height: 1.4;
+  color: #333;
+  padding: var(--card-padding);
+  /* background: var(--bg-seventh); */
+  /* border-left: 4px solid var(--bg-fifth); */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  /* border-radius: 5px; */
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.separator {
+  width: 90%;
+  height: 0.2rem;
+  background: var(--bg-fourth);
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.me-text {
+  text-align: left;
+  margin-bottom: var(--margin-base);
+  /* font-family: 'Arial', sans-serif; */
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-family: var(--system-font);
+  font-size: var(--font-size-medium);
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  color: black;
+  padding: var(--card-padding);
+
+  /* background: var(--bg-fourth); */
+  /* background: var(--bg-fifth); */
+  /* background: var(--bg-seventh); */
+  background: var(--bg-test);
+  border-left: 6px solid var(--color-text-third);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* border-radius: 5px; */
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect */
+.me-text:hover,
+.shouldaisign-text:hover {
+  /* background: #f0f8ff; */
+  transform: scale(1.02);
+}
+
+/* Modal Styles */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  /* height: 100vh; */
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4rem 1rem;
+  /* margin: 6rem; */
+  /* background: magenta; */
+}
+
+.modalContent {
+  object-fit: contain;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 10px;
+  position: relative;
+  /* max-height: 60%; */
+  /* max-width: fit-content; */
+
+  /* max-width: 100%;
+  min-width: 50%; */
+  /* min-height: 50%; */
+  /* height: fit-content; */
+  height: 90%;
+  width: min(100%, 1000px);
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
+  /* overflow: hidden; */
+  /* background: red; */
+}
+
+.modal-image {
+  border-radius: 8px;
+  object-fit: contain;
+  /* width:  auto; */
+  width: 100%;
+  height: 100%;
+
+  /* background: var(--bg-secondary); */
+  /* height: auto; */
+  /* height: 55%; */
+}
+
+.modal-video {
+  width: 80vw;
+  height: 45vw;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.info-card {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  margin: 1rem auto;
+  margin-bottom: var(--margin-lg);
+  padding: 1rem;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+  transition: 0.3s;
+  /* background: #a9dd9f; */
+  gap: 0.6rem;
+}
+
+.link-button {
+  background: var(--btn-color-primary);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--btn-border-radius);
+  border: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect */
+.link-button:hover {
+  transform: scale(1.1);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 1400px) {
+  .about-container {
+    max-width: 100%;
+    margin: 0 auto;
+    /* padding: 1rem; */
+    overflow-y: auto;
+    max-height: fit-content;
+  }
+
+  .about-container p {
+    
+    
+  }
+
+  /* .about-content {
+    flex-direction: column;
+  } */
+
+  .me-text {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .info-card {
+    max-width: 40%;
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .about-container {
+    max-width: 100%;
+    margin: 0 auto;
+    /* padding: 0.5rem; */
+    /* padding-top: 5%; */
+    /* max-height: 65vh; */
+  }
+  .about-container p {
+    width: 50%;
+  }
+
+  /* .modal-pdfViewer {
+    width: 90vw;
+    height: 130vw;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+  } */
+
+  .me-text {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .info-card {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    padding: 0.5rem;
+  }
+}
+
+     
+
+
+
+
+
+
+      {/* <div className={classes['separator']}></div> */}
+
+      {/* Image Modal */}
+      {isImageModalOpen && (
+        <div
+          className={classes.modal}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              closeImageModal();
+            }
+          }}
+        >
+          <div className={classes.modalContent}>
+            <span className={classes.close} onClick={closeImageModal}>
+              &times;
+            </span>
+            <img src={stack} alt='Stack' className={classes['modal-image']} />
+          </div>
+        </div>
+      )}
+
+      {/* Video Modal */}
+      {/* {isVideoModalOpen && (
+        <div className={classes.modal}>
+          <div className={classes.modalContent}>
+            <span className={classes.close} onClick={closeVideoModal}>
+              &times;
+            </span>
+            <div className={classes['modal-video']}>
+              <iframe
+                src='https://player.vimeo.com/video/1023662662?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479'
+                frameBorder='0'
+                allow='autoplay; fullscreen; picture-in-picture; clipboard-write'
+                style={{ width: '100%', height: '100%' }}
+                title='Demo Babster 2024-06-04'
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )} */}
+
+      {/* PDF Viewer */}
+      {isPdfModalOpen && (
+        <div className={classes.modal} onClick={closePdfModal}>
+          <div className={classes.modalContent}>
+            <span className={classes.close} onClick={closePdfModal}>
+              &times;
+            </span>
+            {/* <div className={classes['modal-pdfViewer']}> */}
+            {/* <iframe src={cv} width='100%' height='500px' title='PDF Viewer'> */}
+            <iframe src={cv} className={classes['iframe']} title='PDF Viewer'>
+              This browser does not support PDFs. Please download the PDF to
+              view it:
+              <a href={cv} download>
+                Download PDF
+              </a>
+              .
+            </iframe>
+            {/* </div> */}
+          </div>
+        </div>
+      )}
+      <div className={classes['about-content']}>
+        <p className={classes['shouldaisign-text']}>
+          <h1 className={classes.h1}>ShouldAISign</h1>
+          Combining my current passion-project with an about me section. User
+          agreements are hard to grasp and that inspired me to develop a service
+          that can help users understand what they sign. Frontend: Vite, React,
+          Typescript. Backend: GraphQL, Mongoose, React, Typescript,
+          Jsonwebtoken, Bcrypt, Express, OpenAI. DB: Atlas MongoDB. Hosted on
+          AWS EC2 using Ngingx as webserver. Domain-name from GleSys.
+        </p>
+      </div>
+      <div className={classes['about-content']}>
+        <p className={classes['shouldaisign-text']}>
+          <h1 className={classes.h1}>Babster</h1>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,
+          sapiente pariatur quos aliquam quia temporibus ullam ipsam similique
+          minima placeat laborum ratione veniam totam nemo! Sapiente aliquid
+          temporibus, repudiandae officiis, dolorem dignissimos, quo suscipit
+          totam quidem repellendus facilis sunt sint sequi provident quam ipsam
+          praesentium illum? Ipsa, amet soluta nam laudantium, ratione eum iure
+          deleniti aperiam inventore excepturi officiis et magni aliquid. Et
+          delectus in odit, expedita quaerat nostrum fugit consectetur
+          accusamus? Laborum dolor
+          <div className={classes['test']}>
+            <iframe
+              className={classes['iframe']}
+              src='https://player.vimeo.com/video/1023662662?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479'
+              frameBorder='0'
+              allow='autoplay; fullscreen; picture-in-picture; clipboard-write'
+              style={{ width: '100%', height: '100%' }}
+              title='Demo Babster 2024-06-04'
+            ></iframe>
+          </div>
+        </p>
+      </div>
+      <div className={classes['about-content']}>
+        <p className={classes['shouldaisign-text']}>
+          <h1 className={classes.h1}>CI/Cd</h1>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,
+          sapiente pariatur quos aliquam quia temporibus ullam ipsam similique
+          minima placeat laborum ratione veniam totam nemo! Sapiente aliquid
+          temporibus, repudiandae officiis, dolorem dignissimos, quo suscipit
+          totam quidem repellendus facilis sunt sint sequi provident quam ipsam
+          praesentium illum? Ipsa, amet soluta nam laudantium, ratione eum iure
+          deleniti aperiam inventore excepturi officiis et magni aliquid. Et
+          delectus in odit, expedita quaerat nostrum fugit consectetur
+          accusamus? Laborum dolor
+          <div className={classes['test']}>
+            <iframe
+              className={classes['iframe']}
+              src='https://player.vimeo.com/video/1029596745?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58480'
+              frameBorder='0'
+              allow='autoplay; fullscreen; picture-in-picture; clipboard-write'
+              style={{ width: '100%', height: '100%' }}
+              title='Demo CI/CD 2024-10-15'
+            ></iframe>
+          </div>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default About;
