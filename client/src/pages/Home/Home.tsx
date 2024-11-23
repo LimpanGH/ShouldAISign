@@ -12,9 +12,13 @@ const Home = () => {
           consumer it can be difficult to understand the legal terms and their
           implications. ShouldAISign is here to help you with that.
         </p>
+      
+      
       <button className={classes['get-started-btn']} >
         <a href='/sign-in'>Get Started</a>
       </button>
+
+
       </div>
     </div>
   );

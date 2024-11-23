@@ -1,73 +1,70 @@
-div h1  {
-    font-family: var(--system-font);
-       font-size: var(--font-size-heading);
-    
-   }
-   .home-container div button a{
-    text-decoration: none;
-   
-}   
-   p {
-     font-family: var(--system-font);
-     width: 100%;
-     text-align: left;
-   }
-   
-   .home-container div{
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     height: 100vh;
-     padding: var(--padding-base);
-     font-family: var(--system-font);
-     background: var(--bg-primary);
-   }
-   
-   .home-container div button {
-    background: var(--bg-fourth);
-    color: var(--color-text-primary);
+div h1 {
+  font-family: var(--system-font);
+  font-size: var(--font-size-heading);
+}
+.home-container div button a {
+  text-decoration: none;
+}
+p {
+  font-family: var(--system-font);
+  /* width: 100%; */
+  text-align: left;
+}
+
+.home-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: var(--padding-base);
+  font-family: var(--system-font);
+  background: var(--bg-primary);
+}
+
+.home-container div button {
+  background: var(--bg-fourth);
+  color: var(--color-text-primary);
+  padding: var(--btn-padding-lg);
+  width: 50%;
+  border: none;
+  border-radius: var(--btn-border-radius);
+  cursor: pointer;
+  font-family: var(--system-font);
+  font-size: var(--font-size-medium);
+  text-decoration: none;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .home-container {
+    /* padding: 0 1rem; */
+  }
+
+  .home-container p{
+   width: 50%;
+   font-size: var(--font-size-heading);
+  }
+  p {
+    /* width: 50%; */
+
+  }
+
+  .home-container h1 {
+    font-size: var(--font-size-heading-lg);
+  }
+
+  .home-container div button {
     padding: var(--btn-padding-lg);
-    width: 50%;
+    width: 25%;
     border: none;
     border-radius: var(--btn-border-radius);
     cursor: pointer;
-    font-family: var(--system-font);
-    font-size: var(--font-size-medium);
-    text-decoration: none;
+    font-size: var(--font-size-heading);
     margin-top: 2rem;
   }
-   
-    @media (min-width: 768px) {
-   
-       .home-container {
-           padding: 0 1rem;
-         }
-         p {
-           width: 50%;
-           
-           font-size: var(--font-size-heading);
-         }
-       
-         .home-container h1 {
-           font-size: var(--font-size-heading-lg);
-         }
-       
-         .home-container div button {
-           padding: var(--btn-padding-lg);
-           width: 25%;
-           border: none;
-           border-radius: var(--btn-border-radius);
-           cursor: pointer;
-           font-size: var(--font-size-heading);
-           margin-top: 2rem;
-           
-        }
-        
-        .home-container div button a{
-             text-decoration: none;
-            
-         }
-     
-   }
-   
+
+  .home-container div button a {
+    text-decoration: none;
+  }
+}

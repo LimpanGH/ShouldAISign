@@ -1,5 +1,5 @@
 import { makeGraphQLRequest } from '../helpers/api';
-import { SignUpFormData } from '../pages/SignUp';
+import { SignUpFormData } from '../pages/User-account/SignUp';
 
 const ADD_USER_MUTATION = `
   mutation AddUser($name: String!, $email: String!, $password: String!) {
