@@ -1,0 +1,34 @@
+# Use a Node.js image with Playwright and testing dependencies
+# FROM mcr.microsoft.com/playwright:v1.32.1-focal
+FROM mcr.microsoft.com/playwright:v1.49.0-noble 
+
+# Set the working directory
+WORKDIR /client
+
+# Copy package.json and package-lock.json (or yarn.lock)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the test files and any necessary files for testing
+COPY . .
+
+# RUN apt-get update && apt-get install -y wget
+RUN apt-get update && apt-get install -y curl
+
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 CMD curl -f http://localhost:4000 || exit 1
+
+
+
+
+
+# Run the tests
+# CMD [./"app:4000", "--", "npx", "playwright", "test"]
+# CMD ["sh", "-c", "npm run start & "npx", "playwright", "test"]
+# CMD ["sh", "-c", "npm run start & npx playwright test"]
+# CMD [ "app:4000", "--", "npx", "playwright", "test"]
+CMD ["sh", "-c", "npm run start & npx playwright test"]
+
+
+

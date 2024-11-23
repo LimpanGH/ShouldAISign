@@ -1,0 +1,27 @@
+
+services:
+  client-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.client
+    ports:
+      - "4000:4000"  # Expose the app on port 3000
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=production
+
+  client-tests:
+    build:
+      context: ./
+      dockerfile: Dockerfile.test
+    depends_on:
+      - client-app  # Wait for the app container to be ready
+    networks:
+      - app-network
+    environment:
+      - BASE_URL=http://client-app:4000  # Point Playwright to the app container
+
+networks:
+  app-network:
+    driver: bridge
