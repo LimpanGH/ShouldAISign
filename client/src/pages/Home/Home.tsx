@@ -15,7 +15,7 @@ const Home = () => {
       
       
       <button className={classes['get-started-btn']} >
-        <a href='/sign-in'>Get Started</a>
+        <a href='/signin'>Get Started</a>
       </button>
 
 

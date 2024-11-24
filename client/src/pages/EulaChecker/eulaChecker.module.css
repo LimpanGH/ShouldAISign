@@ -29,6 +29,9 @@
 .submit-button {
   margin-inline: auto;
 }
+/* .response-area{
+  min-height: 600px;
+} */
 
 .eulachecker-form .foldericon-and-sendbutton-wrapper .submit-button {
   width: 30%;
@@ -317,14 +320,16 @@ p {
 }
 
 .response {
+  min-height: 15rem;
   margin: 0 auto;
   width: min(100%, 900px);
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
-  background: green;
+  background: rgb(241, 244, 243);
   max-height: 7rem;
   overflow-y: auto;
+  font-family: var(--system-font);
 }
 
 .response h2 {

@@ -37,7 +37,7 @@ export const SignIn = () => {
 
   return (
     <>
-      <div>
+      <div className={classes['wrapper']}>
         {/* <img src={heroImg} alt='Eula hero image' className={classes['hero']} /> */}
         {/* <div className='primary-bg'>primary-bg</div>
         <div className='secondary-bg'>secondary-bg</div>

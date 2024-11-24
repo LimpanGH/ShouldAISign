@@ -1,6 +1,17 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 100vw;
+
+  /* background: var(--bg-primary); */
+}
 .signin-container {
   max-width: 400px;
-  margin: 0 auto;
+  /* max-width: 900px; */
+  /* margin: 0 auto; */
+
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -91,4 +102,19 @@
 
 .signin-form .input-error {
   border-color: red;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    max-width: 100vw;
+  }
+
+  .wrapper .signin-container {
+    min-width: 30%;
+    min-height: 45%;
+  }
 }

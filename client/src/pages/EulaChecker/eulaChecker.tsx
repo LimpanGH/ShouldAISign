@@ -373,7 +373,8 @@ function EulaChecker() {
               </div>
             </div>
             {response && (
-              <div>
+              <div >
+              {/* // <div className={classes['response-area']}> */}
                 <h2>Svar:</h2>
                 <p className={classes['response']}>{response}</p>
               </div>
