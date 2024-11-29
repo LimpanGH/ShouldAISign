@@ -1,4 +1,5 @@
-import iconmonstrLinkedin from '../assets/iconmonstr-linkedin-3.svg';
+// import iconmonstrLinkedin from '../assets/iconmonstr-linkedin-3.svg';
+import iconmonstrLinkedin from '../../assets/iconmonstr-linkedin-3.svg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

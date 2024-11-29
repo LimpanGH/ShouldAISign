@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import classes from '../css/NavBar.module.css';
+import classes from './NavBar.module.css';
 // import logo from '../assets/logo.svg';
 
 export const AUTH_EVENT = 'authStateChanged';

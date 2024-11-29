@@ -36,7 +36,7 @@ const Home = () => {
           Hi! If you actually <span className={classes.emphasized}>read</span> and{' '}
           <span className={classes.emphasized}>understood</span> the{' '}
           <span className={classes.emphasized}>
-            End User Licence Agreements{' '}
+            End User Licence Agreements{' '} (EULA)
           </span>{' '}
           when you last updated your phone, signed up to Netflix, or bought a
           hoover, great, this site may not be for you.

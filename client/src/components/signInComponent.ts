@@ -49,7 +49,7 @@
 
 import { makeGraphQLRequest } from '../helpers/api';
 import { SignInFormData } from '../pages/User-account/SignIn';
-import { AuthEvents } from './NavBar';
+import { AuthEvents } from './NavBar/NavBar';
 
 const SIGN_IN_MUTATION = `
   mutation login ($email: String!, $password: String!) {
