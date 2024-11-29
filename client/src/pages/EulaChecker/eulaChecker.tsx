@@ -1,7 +1,8 @@
 import { gql, request, Variables } from 'graphql-request';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import FolderIcon from '../../components/FolderSVG';
+import FolderIcon2 from '../../components/FolderSVG2';
 // import SpeedometerSVG from '../components/spedometer';
 // import sideBarIcon from '../../assets/sidebar-hide-svgrepo-com.svg';
 import classes from '../EulaChecker/eulaChecker.module.css';
@@ -44,6 +45,7 @@ function EulaChecker() {
   }>({});
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar state
+  const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref for sidebar
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
@@ -51,6 +53,26 @@ function EulaChecker() {
 
   // const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
   const apiUrl = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // If sidebar is open and the click is outside the sidebar
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setIsSidebarOpen(false); // Close sidebar
+      }
+    };
+
+    // Add the event listener to document
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   if (!apiUrl) {
     throw new Error('API URL is not defined');
@@ -226,6 +248,7 @@ function EulaChecker() {
         {/* Eulas ---------------- ⬇️*/}
         {/* <div className={classes['eula-list-wrapper']}> */}
         <div
+          ref={sidebarRef} // Attach the ref to the sidebar
           className={`${classes['eula-list']} ${
             isSidebarOpen ? classes['open'] : ''
           }`}
@@ -234,7 +257,7 @@ function EulaChecker() {
             className={classes['close-sidebar-btn']}
             onClick={toggleSidebar}
           >
-            x
+            X
           </button>
           <div
             {...getRootProps({
@@ -315,8 +338,9 @@ function EulaChecker() {
             ) : (
               <p>
                 Please select a EULA or upload a new .txt-file.
-            
-                <FolderIcon className={classes['folder-icon-welcome']} /> <br />
+                <br />
+                The Eula will be displayed here once selected.
+                {/* <FolderIcon className={classes['folder-icon-welcome']} /> <br /> */}
               </p>
             )}
           </div>
@@ -360,7 +384,7 @@ function EulaChecker() {
                   onClick={toggleSidebar}
                   className={classes['folder-icon-button']}
                 >
-                  <FolderIcon className={classes['folder-icon']} />
+                  <FolderIcon2 color="black" className={classes['folder-icon']} />
                 </button>
 
                 <button
@@ -373,8 +397,8 @@ function EulaChecker() {
               </div>
             </div>
             {response && (
-              <div >
-              {/* // <div className={classes['response-area']}> */}
+              <div>
+                {/* // <div className={classes['response-area']}> */}
                 <h2>Svar:</h2>
                 <p className={classes['response']}>{response}</p>
               </div>

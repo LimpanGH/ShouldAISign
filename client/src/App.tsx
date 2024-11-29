@@ -6,7 +6,7 @@ import EulaChecker from './pages/EulaChecker/eulaChecker';
 import About from './pages/About/About';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import Contact from './pages/Contact';
+// import Contact from '../Not_In_Use/Contact';
 import CVPage from './pages/CVPage/cvPage';
 import Home from './pages/Home/Home';
 
@@ -24,9 +24,8 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/eula-checker' element={<EulaChecker />} />
           <Route path='/about' element={<About />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/cv-page' element={<CVPage />} />
+          {/* <Route path='/contact' element={<Contact />} /> */}
+                    <Route path='/cv-page' element={<CVPage />} />
         </Routes>
       </div>
       <div className='footer-container'>

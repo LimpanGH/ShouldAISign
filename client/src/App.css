@@ -243,9 +243,7 @@ body {
   background: var(--bg-sixth);
 }
 
-button {
-  background: var(--bg-fourth);
-}
+
 
 .app-container {
   display: flex;

@@ -73,6 +73,7 @@ export const SignIn = () => {
               <div className={classes['form-group']}>
                 <label htmlFor='password'>Password</label>
                 <input
+                type='password'
                   id='password'
                   className={`${classes['form-input']} ${
                     errors.password ? classes['input-error'] : ''

@@ -1,10 +1,10 @@
 // https://reactrouter.com/en/main/components/nav-link
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import classes from '../css/NavBar.module.css';
-import logo from '../assets/logo.svg';
+// import logo from '../assets/logo.svg';
 
 export const AUTH_EVENT = 'authStateChanged';
 
@@ -20,6 +20,7 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const jwtToken = 'token';
+  const navbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check initial authentication status
@@ -37,6 +38,22 @@ const Navbar: React.FC = () => {
     // Cleanup listener on unmount
     return () => {
       window.removeEventListener(AUTH_EVENT, handleAuthChange as EventListener);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        navbarRef.current && 
+        !navbarRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -58,11 +75,11 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className={classes['navbar-container']}>
+    <nav className={classes['navbar-container']} ref={navbarRef}>
       <div className={classes['navbar-logo']}>
-        <NavLink to='/'>
+        {/* <NavLink to='/'>
           <img src={logo} alt='logo' />
-        </NavLink>
+        </NavLink> */}
         <Link to='/'>ShouldAISign</Link>
       </div>
 
@@ -138,6 +155,7 @@ const Navbar: React.FC = () => {
               className={({ isActive }) =>
                 isActive ? classes['active-link'] : classes['inactive-link']
               }
+              onClick={toggleMenu}
             >
               Sign In
             </NavLink>
