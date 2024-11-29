@@ -1,94 +1,37 @@
-// https://reactrouter.com/en/main/components/nav-link
-
-import React, { useState, useEffect, useRef} from 'react';
-import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { useAuth } from '../../helpers/AutContext'; // Import useAuth
 import classes from './NavBar.module.css';
-// import logo from '../assets/logo.svg';
-
-export const AUTH_EVENT = 'authStateChanged';
-
-// Create a utility to manage auth state
-export const AuthEvents = {
-  emit: (isAuthenticated: boolean) => {
-    const event = new CustomEvent(AUTH_EVENT, { detail: { isAuthenticated } });
-    window.dispatchEvent(event);
-  },
-};
 
 const Navbar: React.FC = () => {
+  const { isAuthenticated, logout } = useAuth(); // Access auth state and logout
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const jwtToken = 'token';
   const navbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Check initial authentication status
-    const token = localStorage.getItem(jwtToken);
-    setIsAuthenticated(!!token);
-
-    // Listen for authentication state changes
-    const handleAuthChange = (event: CustomEvent) => {
-      setIsAuthenticated(event.detail.isAuthenticated);
-    };
-
-    // Add event listener
-    window.addEventListener(AUTH_EVENT, handleAuthChange as EventListener);
-
-    // Cleanup listener on unmount
-    return () => {
-      window.removeEventListener(AUTH_EVENT, handleAuthChange as EventListener);
-    };
-  }, []);
-
-  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        navbarRef.current && 
-        !navbarRef.current.contains(event.target as Node)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
-  function signOut() {
-    const token = localStorage.getItem(jwtToken);
-    if (!token) {
-      alert('No user is currently signed in');
-      return;
-    }
-    localStorage.removeItem(jwtToken);
-    setIsAuthenticated(false);
-    AuthEvents.emit(false);
-    alert('Successfully signed out');
-    window.location.href = '/';
-  }
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <nav className={classes['navbar-container']} ref={navbarRef}>
       <div className={classes['navbar-logo']}>
-        {/* <NavLink to='/'>
-          <img src={logo} alt='logo' />
-        </NavLink> */}
-        <Link to='/'>ShouldAISign</Link>
+        <Link to="/">ShouldAISign</Link>
       </div>
-
       <div className={classes.hamburger} onClick={toggleMenu}>
         <span className={isMenuOpen ? classes['line-active'] : ''}></span>
         <span className={isMenuOpen ? classes['line-active'] : ''}></span>
         <span className={isMenuOpen ? classes['line-active'] : ''}></span>
       </div>
-
       <ul
         className={`${classes['navbar-links']} ${
           isMenuOpen ? classes['active'] : ''
@@ -96,7 +39,7 @@ const Navbar: React.FC = () => {
       >
         <li>
           <NavLink
-            to='/'
+            to="/"
             className={({ isActive }) =>
               isActive ? classes['active-link'] : classes['inactive-link']
             }
@@ -107,7 +50,7 @@ const Navbar: React.FC = () => {
         </li>
         <li>
           <NavLink
-            to='/eula-checker'
+            to="/eula-checker"
             className={({ isActive }) =>
               isActive ? classes['active-link'] : classes['inactive-link']
             }
@@ -116,10 +59,9 @@ const Navbar: React.FC = () => {
             Eula Checker
           </NavLink>
         </li>
-
         <li>
           <NavLink
-            to='/about'
+            to="/about"
             className={({ isActive }) =>
               isActive ? classes['active-link'] : classes['inactive-link']
             }
@@ -128,30 +70,10 @@ const Navbar: React.FC = () => {
             About Me
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink
-            to='/contact'
-            className={({ isActive }) =>
-              isActive ? classes['active-link'] : classes['inactive-link']
-            }
-          >
-            Contact
-          </NavLink>
-        </li> */}
-        {/* <li>
-          <NavLink
-            to='/cv-page'
-            className={({ isActive }) =>
-              isActive ? classes['active-link'] : classes['inactive-link']
-            }
-          >
-            CV
-          </NavLink>
-        </li> */}
-        {!isAuthenticated && (
+        {!isAuthenticated ? (
           <li>
             <NavLink
-              to='/signIn'
+              to="/signin"
               className={({ isActive }) =>
                 isActive ? classes['active-link'] : classes['inactive-link']
               }
@@ -160,11 +82,9 @@ const Navbar: React.FC = () => {
               Sign In
             </NavLink>
           </li>
-        )}
-
-        {isAuthenticated && (
+        ) : (
           <li>
-            <button onClick={signOut} className={classes['signout-button']}>
+            <button onClick={logout} className={classes['signout-button']}>
               Sign Out
             </button>
           </li>

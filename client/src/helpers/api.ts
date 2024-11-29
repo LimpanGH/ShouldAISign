@@ -7,7 +7,6 @@ export const makeGraphQLRequest = async <T>(query: string, variables: T) => {
     throw new Error('API URL is not defined');
   }
 
-
   // const response = await fetch('http://localhost:4000/graphql', {
   const response = await fetch(apiUrl, {
     method: 'POST',
