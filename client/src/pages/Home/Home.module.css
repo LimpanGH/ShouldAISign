@@ -10,8 +10,9 @@ p {
   font-family: var(--system-font);
   /* width: 100%; */
   text-align: left;
-  
 }
+
+
 
 .home-container div {
   display: flex;
@@ -55,10 +56,8 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
   }
-
- 
 
   .home-container p {
     width: 50%;

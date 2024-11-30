@@ -1,6 +1,6 @@
-import { useAuth } from '../helpers/AutContext';
-import { makeGraphQLRequest } from '../helpers/api';
-import { SignInFormData } from '../pages/User-account/SignIn';
+import { useAuth } from '../../helpers/AutContext';
+import { makeGraphQLRequest } from '../../helpers/api';
+import { SignInFormData } from '../User-account/SignIn';
 
 const SIGN_IN_MUTATION = `
   mutation login ($email: String!, $password: String!) {

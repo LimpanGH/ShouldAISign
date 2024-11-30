@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import SignInComponent from '../../components/signInComponent';
+import SignInComponent from './signInComponent';
 import classes from './SignIn.module.css';
 
 export type SignInFormData = {
@@ -79,9 +79,11 @@ export const SignIn = () => {
                 </span>
               )}
             </div>
+            
             <button type='submit' className={classes['submit-button']}>
               Sign In
             </button>
+            
             <button
               type='button'
               className={classes['sign-up-button']}

@@ -1,8 +1,8 @@
 import { gql, request, Variables } from 'graphql-request';
 import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import FolderIcon from '../../components/FolderSVG';
-import FolderIcon2 from '../../components/FolderSVG2';
+import FolderIcon from '../../components/SVG/FolderSVG';
+import FolderIcon2 from '../../components/SVG/FolderSVG2';
 // import SpeedometerSVG from '../components/spedometer';
 // import sideBarIcon from '../../assets/sidebar-hide-svgrepo-com.svg';
 import classes from '../EulaChecker/eulaChecker.module.css';
@@ -103,7 +103,7 @@ function EulaChecker() {
         {},
         { Authorization: `Bearer ${token}` }
       );
-      console.log(data.getAllEulas);
+      // console.log(data.getAllEulas);
       setEulas(data.getAllEulas);
     } catch (error) {
       console.error('Error fetching EULAs', error);
@@ -157,6 +157,8 @@ function EulaChecker() {
       reader.onload = async (e) => {
         const text = e.target?.result?.toString() || '';
         await saveEulaToDB(text, file.name);
+        alert('User successfully logged in!');
+
       };
       reader.readAsText(file);
       fetchEulas();

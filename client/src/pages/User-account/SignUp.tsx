@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import SignUpComponent from '../../components/signUpComponent';
+import SignUpComponent from './signUpComponent';
 import classes from './SignUp.module.css';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for validating email format
