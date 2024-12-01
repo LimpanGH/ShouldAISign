@@ -107,7 +107,6 @@ function EulaChecker() {
     throw new Error('API URL is not defined');
   }
 
-
   const fetchEulas = async () => {
     if (!userId) {
       console.error('User ID is not available');
@@ -148,8 +147,6 @@ function EulaChecker() {
       }
     }
   };
-
-  
 
   // useEffect(() => {
   //   if (userId) {
@@ -210,12 +207,13 @@ function EulaChecker() {
 
   const saveEulaToDB = async (text: string, fileName: string) => {
     const mutation = gql`
-      mutation AddEula(
+      mutation addEulaToUserId(
         $title: String!
         $description: String!
         $status: String!
+         $assignedTo: ID!
       ) {
-        addEula(title: $title, description: $description, status: $status) {
+        addEula(title: $title, description: $description, status: $status, assignedTo: $assignedTo) {
           id
         }
       }
@@ -229,11 +227,13 @@ function EulaChecker() {
           title: fileName,
           description: text,
           status: 'uploaded',
+          assignedTo: userId,
         }
       );
     } catch (error) {
       console.error('Error saving EULA', error);
     }
+    fetchEulas();
   };
 
   const deleteEula = async (id: string) => {
@@ -318,8 +318,8 @@ function EulaChecker() {
               ? 'Drop here'
               : 'Drag and drop a .txt file here, or click to select a file'}
           </div>
-          {/* <h2>Your EULAs</h2> */}
-          <div>
+          <h2>Your EULAs</h2>
+          {/* <div>
             {!token ? (
               <h2 className={classes['h2']}>
                 Please log in to see your EULAs.
@@ -329,7 +329,7 @@ function EulaChecker() {
                 <h2>Your EULAS</h2>
               </div>
             )}
-          </div>
+          </div> */}
           {eulas.length > 0 ? (
             <ul>
               {eulas.map((eula) => (
