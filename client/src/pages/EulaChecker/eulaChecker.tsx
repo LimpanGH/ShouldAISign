@@ -68,7 +68,7 @@ function EulaChecker() {
     if (token) {
       try {
         const decoded: DecodedToken = jwtDecode(token);
-        console.log('Decoded Token:', decoded);
+        // console.log('Decoded Token:', decoded);
         setUserId(decoded.userId); // Extract user ID
         if (decoded.exp * 1000 < Date.now()) {
           console.warn('Token has expired. Redirecting to login...');
@@ -82,9 +82,9 @@ function EulaChecker() {
       console.warn('No token found in localStorage');
     }
   }, []);
-  console.log('Logged in User ID:', userId);
+  // console.log('Logged in User ID:', userId);
 
-  console.log('Token:', token);
+  // console.log('Token:', token);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -139,7 +139,7 @@ function EulaChecker() {
         { assignedTo: userId }, // Pass userId here
         { Authorization: `Bearer ${token}` }
       );
-      console.log('Fetched EULAs:', data.getEulasAssignedToUserId);
+      // console.log('Fetched EULAs:', data.getEulasAssignedToUserId);
       setEulas(data.getEulasAssignedToUserId);
     } catch (error) {
       console.error('Error fetching EULAs:', error);
