@@ -58,6 +58,8 @@ export const eulaResolvers = {
         args.assignedTo ? { assignedTo: args.assignedTo } : {}
       );
     },
+
+    
   },
   Mutation: {
     addEula: async (_: any, args: { [key: string]: any }, context: Context) => {

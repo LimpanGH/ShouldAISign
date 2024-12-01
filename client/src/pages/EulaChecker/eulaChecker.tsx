@@ -6,15 +6,15 @@ import FolderIcon2 from '../../components/SVG/FolderSVG2';
 // import SpeedometerSVG from '../components/spedometer';
 // import sideBarIcon from '../../assets/sidebar-hide-svgrepo-com.svg';
 import classes from '../EulaChecker/eulaChecker.module.css';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
-const jwtToken = 'token'; // Name of the token in local storage
-const token = localStorage.getItem(jwtToken); // Check if the token exists
+const jwtToken = 'token';
+const token = localStorage.getItem(jwtToken);
 
 type DecodedToken = {
-  userId: string; // Adjust this according to your JWT payload structure
-  exp: number; // Token expiration timestamp
-  iat: number; // Token issued at timestamp
+  userId: string;
+  exp: number;
+  iat: number;
 };
 
 type AIResponseData = {
@@ -39,7 +39,8 @@ type Eula = {
 };
 
 type EulaData = {
-  getAllEulas: Eula[];
+  // getAllEulas: Eula[];
+  getEulasAssignedToUserId: Eula[];
 };
 
 function EulaChecker() {
@@ -52,29 +53,28 @@ function EulaChecker() {
     [key: string]: boolean;
   }>({});
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar state
-  const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref for sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
+  // const apiUrl = 'http://54.221.26.10:4000/graphql';
   const apiUrl = import.meta.env.VITE_API_URL;
-
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      // if (decoded.exp * 1000 < Date.now()) {
-      //   console.warn('Token has expired. Redirecting to login...');
-      //   localStorage.removeItem('token');
-      //   // Redirect user to login page
-      // }
       try {
         const decoded: DecodedToken = jwtDecode(token);
         console.log('Decoded Token:', decoded);
         setUserId(decoded.userId); // Extract user ID
+        if (decoded.exp * 1000 < Date.now()) {
+          console.warn('Token has expired. Redirecting to login...');
+          localStorage.removeItem('token');
+          // Redirect user to login page
+        }
       } catch (error) {
         console.error('Failed to decode token:', error);
       }
@@ -84,24 +84,20 @@ function EulaChecker() {
   }, []);
   console.log('Logged in User ID:', userId);
 
-  
-
+  console.log('Token:', token);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // If sidebar is open and the click is outside the sidebar
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target as Node)
       ) {
-        setIsSidebarOpen(false); // Close sidebar
+        setIsSidebarOpen(false);
       }
     };
 
-    // Add the event listener to document
     document.addEventListener('mousedown', handleClickOutside);
 
-    // Cleanup event listener on component unmount
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -111,10 +107,16 @@ function EulaChecker() {
     throw new Error('API URL is not defined');
   }
 
+
   const fetchEulas = async () => {
+    if (!userId) {
+      console.error('User ID is not available');
+      return;
+    }
+
     const query = gql`
-      query GetAllEulas {
-        getAllEulas {
+      query GetEulasAssignedToUserId($assignedTo: ID!) {
+        getEulasAssignedToUserId(assignedTo: $assignedTo) {
           id
           title
           description
@@ -123,32 +125,38 @@ function EulaChecker() {
         }
       }
     `;
+
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found. User might need to log in.');
       return;
     }
+
     try {
       const data = await request<EulaData, Variables>(
-        // 'http://localhost:4000/graphql',
         apiUrl,
         query,
-        {},
+        { assignedTo: userId }, // Pass userId here
         { Authorization: `Bearer ${token}` }
       );
-      // console.log(data.getAllEulas);
-      setEulas(data.getAllEulas);
+      console.log('Fetched EULAs:', data.getEulasAssignedToUserId);
+      setEulas(data.getEulasAssignedToUserId);
     } catch (error) {
-      console.error('Error fetching EULAs', error);
+      console.error('Error fetching EULAs:', error);
       if (error instanceof Error && error.message.includes('Unauthorized')) {
         console.log('Token might be expired. Redirecting to login...');
       }
     }
   };
+
   
-  useEffect(() => {
-    fetchEulas();
-  }, []);
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     fetchEulas();
+  //   }
+  // }, [userId]);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setQuestion(event.target.value);
   };
@@ -274,8 +282,12 @@ function EulaChecker() {
   };
 
   useEffect(() => {
-    fetchEulas();
-  }, []);
+    //   fetchEulas();
+    // }, []);
+    if (userId) {
+      fetchEulas(); // Fetch EULAs assigned to the current user
+    }
+  }, [userId]);
 
   return (
     <>
