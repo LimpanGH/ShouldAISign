@@ -8,8 +8,8 @@ import FolderIcon2 from '../../components/SVG/FolderSVG2';
 import classes from '../EulaChecker/eulaChecker.module.css';
 import { jwtDecode } from 'jwt-decode';
 
-const jwtToken = 'token';
-const token = localStorage.getItem(jwtToken);
+// const jwtToken = 'token';
+// const token = localStorage.getItem(jwtToken);
 
 type DecodedToken = {
   userId: string;
@@ -148,12 +148,6 @@ function EulaChecker() {
     }
   };
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     fetchEulas();
-  //   }
-  // }, [userId]);
-
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setQuestion(event.target.value);
   };
@@ -211,9 +205,14 @@ function EulaChecker() {
         $title: String!
         $description: String!
         $status: String!
-         $assignedTo: ID!
+        $assignedTo: ID!
       ) {
-        addEula(title: $title, description: $description, status: $status, assignedTo: $assignedTo) {
+        addEula(
+          title: $title
+          description: $description
+          status: $status
+          assignedTo: $assignedTo
+        ) {
           id
         }
       }

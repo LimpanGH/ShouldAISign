@@ -49,6 +49,12 @@ p {
   font-size: var(--font-size-medium);
   text-decoration: none;
   margin-top: 2rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.home-container div button:hover {
+  transform: scale(1.1);
+
 }
 
 @media (min-width: 768px) {
@@ -77,6 +83,7 @@ p {
   }
 
   .home-container div button {
+    
     padding: var(--btn-padding-lg);
     width: 25%;
     border: none;

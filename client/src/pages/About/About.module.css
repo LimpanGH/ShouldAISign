@@ -14,7 +14,6 @@ body {
   width: 100%;
   box-sizing: border-box;
   background: var(--bg-light-gradient);
-  /* max-height: fit-content; */
 }
 
 .about-content {
@@ -25,20 +24,48 @@ body {
 }
 
 .img-container {
-  display: flex;
-  justify-content: center;
+  position: relative;
   align-items: center;
   width: 100%;
+  max-width: 15rem;
   height: 100%;
-  background: red;
   margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.img-container a {
+  position: relative;
+  display: inline-block;
 }
 .img-sofia {
-  justify-self: center;
-  width: 75%;
+  width: 100%;
   height: auto;
   border-radius: 10px;
-  margin: 0 auto;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.img-sofia:hover {
+  transform: scale(1.1);
+  opacity: 0.7;
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 50%;
+  right: 25%;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--color-text-primary);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.img-container:hover .overlay-text,
+.img-container a:active .overlay-text,
+.img-container a:focus .overlay-text {
+  display: block;
+  pointer-events: auto;
 }
 
 .contact-wrapper {
@@ -220,6 +247,7 @@ h1 {
 
 .link-button {
   min-width: 7rem;
+  
   background: var(--bg-fourth);
   color: var(--color-text-primary);
   text-decoration: none;
@@ -252,8 +280,10 @@ h1 {
     max-width: 40%;
     padding: 0.5rem;
   }
-  .img-sofia {
+
+  .img-container {
     width: 50%;
+    height: auto;
   }
 }
 
@@ -262,6 +292,12 @@ h1 {
     max-width: 100%;
     margin: 0 auto;
   }
+
+  .img-container {
+    width: 15rem;
+    height: auto;
+  }
+
   .list {
     display: flex;
     gap: 1rem;

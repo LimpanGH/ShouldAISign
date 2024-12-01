@@ -3,6 +3,7 @@ import { useState } from 'react';
 import classes from '../About/About.module.css';
 import cv from '../../assets/CV LINUS JOHANNESSON, CHAS, FULLSTACK JS.pdf';
 import stack from '../../assets/Teknik-stack-Linus.jpg';
+import sofia from '../../assets/sofia.png';
 // import { LoremIpsum } from 'lorem-ipsum';
 
 const About = () => {
@@ -296,7 +297,7 @@ const About = () => {
 
       <div className={classes['about-content']}>
         <p className={classes['shouldaisign-text']}>
-          <h1 className={classes.h1}>Sofia Masrour</h1>
+          <h1 className={classes.h1}>Portfolio Sofia Masrour</h1>
           <p>
             Sofia is an Stockholm Based architect who needs a website to
             showcase her work. I chose to build it with Vue to add skills to my
@@ -316,17 +317,18 @@ const About = () => {
           {/* <a target='blank' href='https://sofia-masrour.netlify.app/'>
                 <button className={classes['link-button']}>Link</button>
               </a> */}
-          <div className='img-container'>
+          <div className={classes['img-container']}>
             <a target='blank' href='https://sofia-masrour.netlify.app/'>
               <img
                 className={classes['img-sofia']}
-                src='../public/sofia.png'
-                alt=''
+                src={sofia}
+                alt='Sofias Portfolio'
+                
+              
               />
+              <span className={classes['overlay-text']}>Click to View</span>
             </a>
           </div>
-          {/* </div> */}
-          {/* </div> */}
         </p>
       </div>
     </div>
