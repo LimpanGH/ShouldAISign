@@ -6,9 +6,16 @@ import FolderIcon2 from '../../components/SVG/FolderSVG2';
 // import SpeedometerSVG from '../components/spedometer';
 // import sideBarIcon from '../../assets/sidebar-hide-svgrepo-com.svg';
 import classes from '../EulaChecker/eulaChecker.module.css';
+import {jwtDecode} from 'jwt-decode';
 
 const jwtToken = 'token'; // Name of the token in local storage
 const token = localStorage.getItem(jwtToken); // Check if the token exists
+
+type DecodedToken = {
+  userId: string; // Adjust this according to your JWT payload structure
+  exp: number; // Token expiration timestamp
+  iat: number; // Token issued at timestamp
+};
 
 type AIResponseData = {
   aiResponse: {
@@ -36,6 +43,7 @@ type EulaData = {
 };
 
 function EulaChecker() {
+  const [userId, setUserId] = useState<string | null>(null);
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
   // const [reasonablenessScore, setReasonablenessScore] = useState<number>(0); // Initialize speed with a default value
@@ -53,6 +61,31 @@ function EulaChecker() {
 
   // const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
   const apiUrl = import.meta.env.VITE_API_URL;
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // if (decoded.exp * 1000 < Date.now()) {
+      //   console.warn('Token has expired. Redirecting to login...');
+      //   localStorage.removeItem('token');
+      //   // Redirect user to login page
+      // }
+      try {
+        const decoded: DecodedToken = jwtDecode(token);
+        console.log('Decoded Token:', decoded);
+        setUserId(decoded.userId); // Extract user ID
+      } catch (error) {
+        console.error('Failed to decode token:', error);
+      }
+    } else {
+      console.warn('No token found in localStorage');
+    }
+  }, []);
+  console.log('Logged in User ID:', userId);
+
+  
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -112,6 +145,7 @@ function EulaChecker() {
       }
     }
   };
+  
   useEffect(() => {
     fetchEulas();
   }, []);
@@ -157,8 +191,7 @@ function EulaChecker() {
       reader.onload = async (e) => {
         const text = e.target?.result?.toString() || '';
         await saveEulaToDB(text, file.name);
-        alert('User successfully logged in!');
-
+        alert('EULA saved to your account!');
       };
       reader.readAsText(file);
       fetchEulas();
@@ -386,7 +419,10 @@ function EulaChecker() {
                   onClick={toggleSidebar}
                   className={classes['folder-icon-button']}
                 >
-                  <FolderIcon2 color="black" className={classes['folder-icon']} />
+                  <FolderIcon2
+                    color='black'
+                    className={classes['folder-icon']}
+                  />
                 </button>
 
                 <button

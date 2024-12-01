@@ -5,12 +5,18 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
+import { jwtDecode } from 'jwt-decode';
+
+interface DecodedToken {
+  userId: string;
+}
 
 interface AuthContextProps {
   isAuthenticated: boolean;
   login: (token: string) => void;
   logout: () => void;
   verifyAuth: () => boolean;
+  getUserId: () => string | null;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -18,6 +24,7 @@ const AuthContext = createContext<AuthContextProps>({
   login: () => {},
   logout: () => {},
   verifyAuth: () => false,
+  getUserId: () => null,
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -27,7 +34,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const jwtToken = 'token';
 
   useEffect(() => {
-    // Initialize authentication state on mount
     const token = localStorage.getItem(jwtToken);
     setIsAuthenticated(!!token);
   }, []);
@@ -47,9 +53,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return !!token;
   }, []);
 
+  const getUserId = useCallback(() => {
+    const token = localStorage.getItem(jwtToken);
+    if (!token) return null;
+
+    try {
+      const decoded: DecodedToken = jwtDecode(token);
+      return decoded.userId;
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+      return null;
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, verifyAuth }}
+      value={{ isAuthenticated, login, logout, verifyAuth, getUserId }}
     >
       {children}
     </AuthContext.Provider>
