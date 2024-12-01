@@ -1,6 +1,7 @@
 div h1 {
   font-family: var(--system-font);
   font-size: var(--font-size-heading);
+  padding-top: 2rem;
 }
 .home-container div button a {
   text-decoration: none;
@@ -11,15 +12,29 @@ p {
   text-align: left;
 }
 
+
+
 .home-container div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   height: 100vh;
   padding: var(--padding-base);
   font-family: var(--system-font);
   background: var(--bg-primary);
+}
+
+/* Add this to your Home.module.css file */
+.emphasized {
+  font-weight: bold; /* Makes the text bold */
+  color: var(
+    --color-text-tertiary
+  ); /* You can define a color in your theme, or use a specific one like #ff5733 */
+}
+
+.home-container h3 {
+  padding: 1rem;
 }
 
 .home-container div button {
@@ -34,20 +49,33 @@ p {
   font-size: var(--font-size-medium);
   text-decoration: none;
   margin-top: 2rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.home-container div button:hover {
+  transform: scale(1.1);
+
 }
 
 @media (min-width: 768px) {
-  .home-container {
-    /* padding: 0 1rem; */
+  .home-container div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  .home-container p{
-   width: 50%;
-   font-size: var(--font-size-heading);
+  .home-container p {
+    width: 50%;
+    font-size: var(--font-size-heading);
+  }
+  .home-container h3 {
+    width: 50%;
+    font-size: var(--font-size-heading);
+    padding: 4rem;
   }
   p {
     /* width: 50%; */
-
   }
 
   .home-container h1 {
@@ -55,6 +83,7 @@ p {
   }
 
   .home-container div button {
+    
     padding: var(--btn-padding-lg);
     width: 25%;
     border: none;

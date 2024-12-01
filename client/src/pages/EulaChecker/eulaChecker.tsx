@@ -1,13 +1,21 @@
 import { gql, request, Variables } from 'graphql-request';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import FolderIcon from '../../components/FolderSVG';
+import FolderIcon from '../../components/SVG/FolderSVG';
+import FolderIcon2 from '../../components/SVG/FolderSVG2';
 // import SpeedometerSVG from '../components/spedometer';
 // import sideBarIcon from '../../assets/sidebar-hide-svgrepo-com.svg';
 import classes from '../EulaChecker/eulaChecker.module.css';
+import { jwtDecode } from 'jwt-decode';
 
-const jwtToken = 'token'; // Name of the token in local storage
-const token = localStorage.getItem(jwtToken); // Check if the token exists
+// const jwtToken = 'token';
+// const token = localStorage.getItem(jwtToken);
+
+type DecodedToken = {
+  userId: string;
+  exp: number;
+  iat: number;
+};
 
 type AIResponseData = {
   aiResponse: {
@@ -31,10 +39,12 @@ type Eula = {
 };
 
 type EulaData = {
-  getAllEulas: Eula[];
+  // getAllEulas: Eula[];
+  getEulasAssignedToUserId: Eula[];
 };
 
 function EulaChecker() {
+  const [userId, setUserId] = useState<string | null>(null);
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
   // const [reasonablenessScore, setReasonablenessScore] = useState<number>(0); // Initialize speed with a default value
@@ -43,23 +53,69 @@ function EulaChecker() {
     [key: string]: boolean;
   }>({});
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // const apiUrl = 'http://54.221.26.10:4000/graphql'; // Corrected URL
+  // const apiUrl = 'http://54.221.26.10:4000/graphql';
   const apiUrl = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded: DecodedToken = jwtDecode(token);
+        // console.log('Decoded Token:', decoded);
+        setUserId(decoded.userId); // Extract user ID
+        if (decoded.exp * 1000 < Date.now()) {
+          console.warn('Token has expired. Redirecting to login...');
+          localStorage.removeItem('token');
+          // Redirect user to login page
+        }
+      } catch (error) {
+        console.error('Failed to decode token:', error);
+      }
+    } else {
+      console.warn('No token found in localStorage');
+    }
+  }, []);
+  // console.log('Logged in User ID:', userId);
+
+  // console.log('Token:', token);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   if (!apiUrl) {
     throw new Error('API URL is not defined');
   }
 
   const fetchEulas = async () => {
+    if (!userId) {
+      console.error('User ID is not available');
+      return;
+    }
+
     const query = gql`
-      query GetAllEulas {
-        getAllEulas {
+      query GetEulasAssignedToUserId($assignedTo: ID!) {
+        getEulasAssignedToUserId(assignedTo: $assignedTo) {
           id
           title
           description
@@ -68,31 +124,30 @@ function EulaChecker() {
         }
       }
     `;
+
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found. User might need to log in.');
       return;
     }
+
     try {
       const data = await request<EulaData, Variables>(
-        // 'http://localhost:4000/graphql',
         apiUrl,
         query,
-        {},
+        { assignedTo: userId }, // Pass userId here
         { Authorization: `Bearer ${token}` }
       );
-      console.log(data.getAllEulas);
-      setEulas(data.getAllEulas);
+      // console.log('Fetched EULAs:', data.getEulasAssignedToUserId);
+      setEulas(data.getEulasAssignedToUserId);
     } catch (error) {
-      console.error('Error fetching EULAs', error);
+      console.error('Error fetching EULAs:', error);
       if (error instanceof Error && error.message.includes('Unauthorized')) {
         console.log('Token might be expired. Redirecting to login...');
       }
     }
   };
-  useEffect(() => {
-    fetchEulas();
-  }, []);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setQuestion(event.target.value);
   };
@@ -135,6 +190,7 @@ function EulaChecker() {
       reader.onload = async (e) => {
         const text = e.target?.result?.toString() || '';
         await saveEulaToDB(text, file.name);
+        alert('EULA saved to your account!');
       };
       reader.readAsText(file);
       fetchEulas();
@@ -145,12 +201,18 @@ function EulaChecker() {
 
   const saveEulaToDB = async (text: string, fileName: string) => {
     const mutation = gql`
-      mutation AddEula(
+      mutation addEulaToUserId(
         $title: String!
         $description: String!
         $status: String!
+        $assignedTo: ID!
       ) {
-        addEula(title: $title, description: $description, status: $status) {
+        addEula(
+          title: $title
+          description: $description
+          status: $status
+          assignedTo: $assignedTo
+        ) {
           id
         }
       }
@@ -164,11 +226,13 @@ function EulaChecker() {
           title: fileName,
           description: text,
           status: 'uploaded',
+          assignedTo: userId,
         }
       );
     } catch (error) {
       console.error('Error saving EULA', error);
     }
+    fetchEulas();
   };
 
   const deleteEula = async (id: string) => {
@@ -217,8 +281,12 @@ function EulaChecker() {
   };
 
   useEffect(() => {
-    fetchEulas();
-  }, []);
+    //   fetchEulas();
+    // }, []);
+    if (userId) {
+      fetchEulas(); // Fetch EULAs assigned to the current user
+    }
+  }, [userId]);
 
   return (
     <>
@@ -226,6 +294,7 @@ function EulaChecker() {
         {/* Eulas ---------------- ⬇️*/}
         {/* <div className={classes['eula-list-wrapper']}> */}
         <div
+          ref={sidebarRef} // Attach the ref to the sidebar
           className={`${classes['eula-list']} ${
             isSidebarOpen ? classes['open'] : ''
           }`}
@@ -234,7 +303,7 @@ function EulaChecker() {
             className={classes['close-sidebar-btn']}
             onClick={toggleSidebar}
           >
-            x
+            X
           </button>
           <div
             {...getRootProps({
@@ -248,8 +317,8 @@ function EulaChecker() {
               ? 'Drop here'
               : 'Drag and drop a .txt file here, or click to select a file'}
           </div>
-          {/* <h2>Your EULAs</h2> */}
-          <div>
+          <h2>Your EULAs</h2>
+          {/* <div>
             {!token ? (
               <h2 className={classes['h2']}>
                 Please log in to see your EULAs.
@@ -259,7 +328,7 @@ function EulaChecker() {
                 <h2>Your EULAS</h2>
               </div>
             )}
-          </div>
+          </div> */}
           {eulas.length > 0 ? (
             <ul>
               {eulas.map((eula) => (
@@ -315,8 +384,9 @@ function EulaChecker() {
             ) : (
               <p>
                 Please select a EULA or upload a new .txt-file.
-            
-                <FolderIcon className={classes['folder-icon-welcome']} /> <br />
+                <br />
+                The Eula will be displayed here once selected.
+                {/* <FolderIcon className={classes['folder-icon-welcome']} /> <br /> */}
               </p>
             )}
           </div>
@@ -360,7 +430,10 @@ function EulaChecker() {
                   onClick={toggleSidebar}
                   className={classes['folder-icon-button']}
                 >
-                  <FolderIcon className={classes['folder-icon']} />
+                  <FolderIcon2
+                    color='black'
+                    className={classes['folder-icon']}
+                  />
                 </button>
 
                 <button
@@ -373,8 +446,8 @@ function EulaChecker() {
               </div>
             </div>
             {response && (
-              <div >
-              {/* // <div className={classes['response-area']}> */}
+              <div>
+                {/* // <div className={classes['response-area']}> */}
                 <h2>Svar:</h2>
                 <p className={classes['response']}>{response}</p>
               </div>

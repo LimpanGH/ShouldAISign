@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import SignUpComponent from '../../components/signUpComponent';
+import SignUpComponent from './signUpComponent';
 import classes from './SignUp.module.css';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for validating email format
@@ -15,10 +15,17 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<SignUpFormData>();
 
   const onSubmit = async (data: SignUpFormData) => {
-    await SignUpComponent.handleSubmit(data);
+    const emailLowerCase = data.email.toLowerCase();
+    setValue('email', emailLowerCase);
+
+    await SignUpComponent.handleSubmit({
+      ...data,
+      email: emailLowerCase,
+    });
     window.location.href = '/signin';
   };
 
@@ -51,6 +58,7 @@ const SignUp = () => {
 
           <div className={classes['form-group']}>
             <label htmlFor='email'>Email</label>
+
             <input
               {...register('email', {
                 required: 'Email is required',
@@ -65,6 +73,7 @@ const SignUp = () => {
               }`}
               {...register('email', { required: 'Email is required' })}
             />
+
             {errors.email && (
               <span className={classes['error-message']}>
                 {errors.email.message}

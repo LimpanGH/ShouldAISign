@@ -58,6 +58,8 @@ export const eulaResolvers = {
         args.assignedTo ? { assignedTo: args.assignedTo } : {}
       );
     },
+
+    
   },
   Mutation: {
     addEula: async (_: any, args: { [key: string]: any }, context: Context) => {
@@ -67,6 +69,7 @@ export const eulaResolvers = {
         title: args.title,
         description: args.description,
         status: args.status,
+        assignedTo: args.assignedTo,
         createdAt: new Date().toISOString(),
       });
       console.log(eula);
@@ -79,9 +82,9 @@ export const eulaResolvers = {
     ) => {
       console.log('Context user:', context.user);
       checkAuth(context);
-      if (!args.id) {
-        throw new Error('User ID is required');
-      }
+      // if (!args.id) {
+      //   throw new Error('User ID is required');
+      // }
       const eula = new EulaModel({
         title: args.title,
         description: args.description,

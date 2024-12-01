@@ -55,6 +55,8 @@ const Mutation = new GraphQLObjectType({
         title: { type: GraphQLString },
         description: { type: GraphQLString },
         status: { type: GraphQLString },
+        assignedTo: { type: GraphQLID },
+
       },
       resolve: eulaResolvers.Mutation.addEula,
     },
