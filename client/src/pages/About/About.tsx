@@ -64,10 +64,17 @@ const About = () => {
           Jag är en stolt pappa till en dotter, fd sjukgymnast, vinnare av
           Streetdance SM 2004 med min grupp, ex Paris-bo och gitarr-fantast. På
           skolan har jag ofta tagit rollen som scrum-master och arbetsledare när
-          det behövts. Jag har även hållit ett flertal Git-workshops på skolan
-          då det fanns önskemål om det. På jobbet uppskattar jag tydlighet, högt
-          i tak och ett generöst givande och tagande mellan mig, kollegor och
-          arbetsgivare. <br />
+          det behövts. Jag har även hållit ett flertal{' '}
+          <a
+            className={classes['link']}
+            href='https://www.linkedin.com/posts/chas-academy_chasacademy-itutbildning-versionshantering-activity-7242884215015436288-1mMD?utm_source=share&utm_medium=member_desktop'
+            target='_blank'
+          >
+            Git-workshops
+          </a>{' '}
+          på skolan då det fanns önskemål om det. På jobbet uppskattar jag
+          tydlighet, högt i tak och ett generöst givande och tagande mellan mig,
+          kollegor och arbetsgivare. <br />
           <br />
           Jag har driv, och söker ett företag som vill förvalta det på ett bra
           sätt. Med vänlig hälsning, Linus Johannesson <br />
@@ -323,8 +330,6 @@ const About = () => {
                 className={classes['img-sofia']}
                 src={sofia}
                 alt='Sofias Portfolio'
-                
-              
               />
               <span className={classes['overlay-text']}>Click to View</span>
             </a>

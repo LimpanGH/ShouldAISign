@@ -162,9 +162,7 @@
 
 p {
   font-family: var(--system-font);
-  font-size: var(--font-size-medium);
-  
-  
+  font-size: 0.9rem;
 }
 
 .file-content {
@@ -287,6 +285,7 @@ p {
 
 .eula-cards {
   border: 1px solid #ccc;
+  
 }
 
 .eula-list li > div {
@@ -303,6 +302,7 @@ p {
 }
 
 .eula-checker-wrapper {
+  
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -317,33 +317,27 @@ p {
   height: 30vh;
   overflow: scroll;
   /* border: 1px solid #ccc; */
- text-align: left;
- transition: height 0.3s ease;
- }
-
- .custom-fill {
-  fill: var(--bg-fourth);
+  text-align: left;
+  transition: height 0.3s ease;
 }
 
+/* .custom-fill {
+  fill: var(--bg-fourth);
+} */
 
- .collapse-btn {
+.collapse-btn {
   margin-bottom: 10px;
   /* padding: 15px 10px; */
-  
-  
+
   /* color: white; */
-  
+
   border: none;
   cursor: pointer;
   font-size: 16px;
   transition: transform 0.2s;
-  }
- 
+}
 
-  .svg-icon {
-    color: var(--bg-fourth);  /* This will apply the color */
-  }
-  
+
 
 .collapse-btn:hover {
   transform: scale(1.1);
@@ -352,8 +346,6 @@ p {
 .collapse {
   display: none;
 }
-
-
 
 .response {
   min-height: 15rem;
@@ -402,6 +394,9 @@ p {
 }
 
 @media (min-width: 768px) {
+  p {
+    font-size: var(--font-size-medium);
+  }
   .eula-list-wrapper {
     width: 40%;
   }
