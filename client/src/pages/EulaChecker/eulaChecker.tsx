@@ -7,9 +7,14 @@ import FolderIcon2 from '../../components/SVG/FolderSVG2';
 // import sideBarIcon from '../../assets/sidebar-hide-svgrepo-com.svg';
 import classes from '../EulaChecker/eulaChecker.module.css';
 import { jwtDecode } from 'jwt-decode';
+// import CloseCircleIcon from '../../components/SVG/CollapseSVG';
+import CloseCircleIcon from '../../components/SVG/CollapseSVG';
+import ExpandCircleIcon from '../../components/SVG/ExpandSVG';
 
 // const jwtToken = 'token';
 // const token = localStorage.getItem(jwtToken);
+
+
 
 type DecodedToken = {
   userId: string;
@@ -55,9 +60,12 @@ function EulaChecker() {
   const [activeEula, setActiveEula] = useState<Eula | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleCollapse = () => {
+    setIsCollapsed((prevState) => !prevState);
   };
 
   // const apiUrl = 'http://54.221.26.10:4000/graphql';
@@ -288,6 +296,8 @@ function EulaChecker() {
     }
   }, [userId]);
 
+
+
   return (
     <>
       <div className={classes['container']}>
@@ -372,9 +382,36 @@ function EulaChecker() {
         {/* Eulas ---------------- ⬆️*/}
 
         {/* Eula Checker ---------------- ⬇️*/}
+                <div className={classes['eula-checker-wrapper']}>
+          <div>
+            {isCollapsed ? (
+              <ExpandCircleIcon
+                width='24'
+                height='24'
+                fill=''
+                onClick={toggleCollapse}
+                className={classes['collapse-btn']}
+              >
+                {isCollapsed ? 'Expand' : 'Collapse'}{' '}
+              </ExpandCircleIcon>
+            ) : (
+              <CloseCircleIcon
+                width='24'
+                height='24'
+                fill=''
+                onClick={toggleCollapse}
+                className={classes['collapse-btn']}
+              >
+                {isCollapsed ? 'Expand' : 'Collapse'}{' '}
+              </CloseCircleIcon>
+            )}
+          </div>
 
-        <div className={classes['eula-checker-wrapper']}>
-          <div className={classes['eulareader-container']}>
+          <div
+            className={`${classes['eulareader-container']} ${
+              isCollapsed ? classes.collapse : ''
+            }`}
+          >
             {activeEula ? (
               <div>
                 <h3>{activeEula.title}</h3>
@@ -390,7 +427,6 @@ function EulaChecker() {
               </p>
             )}
           </div>
-
           <div className={classes['eulachecker-container']}>
             <div className={classes['eulachecker-header']}>
               <h1>Analyse selected EULA</h1>
