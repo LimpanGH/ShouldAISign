@@ -256,10 +256,10 @@ const About = () => {
           promt-engineering, creating the chat-bot and chat-features aswell as
           many design features throughout the app. This project improved my
           technical skills, my ability to plan, structure and follow deadlines
-          with standups and Jira aswell as my ability to work in a team with
-          other developers. I enjoyed the challenge and the learning experience
-          and realized that working together with others is a wonderful way to
-          learn and grow.
+          with standups and Github Project Page aswell as my ability to work in
+          a team with other developers. I enjoyed the challenge and the learning
+          experience and realized that working together with others is a
+          wonderful way to learn and grow.
           <div className={classes['test']}>
             <iframe
               className={classes['iframe']}
@@ -306,18 +306,17 @@ const About = () => {
         <p className={classes['shouldaisign-text']}>
           <h1 className={classes.h1}>Portfolio Sofia Masrour</h1>
           <p>
-            Sofia is an Stockholm Based architect who needs a website to
-            showcase her work. I chose to build it with Vue to add skills to my
+            Sofia is a Stockholm Based architect who needs a website to showcase
+            her work. I chose to build it with Vue to add skills to my
             repertoire. I am using Vite as a bundler. I also use the Vue Router
             to create a smooth user experience. I am learing a lot about Vue and
             how to work with it. I also learn how to work with a client and how
             to communicate with them to get the best result. Sofia already had a
             Figma when we started out so I had a good idea of what she wanted.
-            It is very nice to to work with a designer and implement their
-            design in code and I find it both easier and harder at the same time
-            to have someone elses opinion on design than just my own. I am
-            looking forward to the final result and I hope Sofia will be happy
-            with it.
+            It is very nice to work with a designer and implement their design
+            into code and I find it both easier and harder at the same time to
+            have someone else’s opinion on design than just my own. I am looking
+            forward to the final result and I hope Sofia will be happy with it.
           </p>
           {/* <div className={classes['contact-wrapper']}> */}
           {/* <div className={classes['info-card']}> */}
