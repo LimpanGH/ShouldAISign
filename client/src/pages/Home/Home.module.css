@@ -64,35 +64,38 @@ p {
     align-items: center;
     justify-content: center;
   }
-
+  
   .home-container p {
     width: 50%;
-    font-size: var(--font-size-heading);
+    /* font-size: var(--font-size-heading); */
+    
   }
   .home-container h3 {
     width: 50%;
-    font-size: var(--font-size-heading);
-    padding: 4rem;
+    /* font-size: var(--font-size-heading); */
+
+    /* padding: 4rem; */
+    padding: 2%;
   }
   p {
     /* width: 50%; */
   }
-
+  
   .home-container h1 {
-    font-size: var(--font-size-heading-lg);
+    /* font-size: var(--font-size-heading-lg); */
   }
-
+  
   .home-container div button {
     
     padding: var(--btn-padding-lg);
-    width: 25%;
+    width: 20%;
     border: none;
     border-radius: var(--btn-border-radius);
     cursor: pointer;
-    font-size: var(--font-size-heading);
+    /* font-size: var(--font-size-heading); */
     margin-top: 2rem;
   }
-
+  
   .home-container div button a {
     text-decoration: none;
   }

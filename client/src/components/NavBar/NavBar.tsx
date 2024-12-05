@@ -10,7 +10,10 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target as Node)
+      ) {
         setIsMenuOpen(false);
       }
     };
@@ -22,10 +25,15 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const handleSignOutButtonClick = () => {
+    logout();
+    toggleMenu();
+  };
+
   return (
     <nav className={classes['navbar-container']} ref={navbarRef}>
       <div className={classes['navbar-logo']}>
-        <Link to="/">ShouldAISign</Link>
+        <Link to='/'>ShouldAISign</Link>
       </div>
       <div className={classes.hamburger} onClick={toggleMenu}>
         <span className={isMenuOpen ? classes['line-active'] : ''}></span>
@@ -39,7 +47,7 @@ const Navbar: React.FC = () => {
       >
         <li>
           <NavLink
-            to="/"
+            to='/'
             className={({ isActive }) =>
               isActive ? classes['active-link'] : classes['inactive-link']
             }
@@ -50,7 +58,7 @@ const Navbar: React.FC = () => {
         </li>
         <li>
           <NavLink
-            to="/eula-checker"
+            to='/eula-checker'
             className={({ isActive }) =>
               isActive ? classes['active-link'] : classes['inactive-link']
             }
@@ -61,7 +69,7 @@ const Navbar: React.FC = () => {
         </li>
         <li>
           <NavLink
-            to="/about"
+            to='/about'
             className={({ isActive }) =>
               isActive ? classes['active-link'] : classes['inactive-link']
             }
@@ -73,7 +81,7 @@ const Navbar: React.FC = () => {
         {!isAuthenticated ? (
           <li>
             <NavLink
-              to="/signin"
+              to='/signin'
               className={({ isActive }) =>
                 isActive ? classes['active-link'] : classes['inactive-link']
               }
@@ -84,7 +92,11 @@ const Navbar: React.FC = () => {
           </li>
         ) : (
           <li>
-            <button onClick={logout} className={classes['signout-button']}>
+            <button
+              // onClick={logout} className={classes['signout-button']
+              onClick={handleSignOutButtonClick}
+              className={classes['signout-button']}
+            >
               Sign Out
             </button>
           </li>

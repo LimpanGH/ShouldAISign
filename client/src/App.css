@@ -25,8 +25,6 @@
   --bg-test: linear-gradient(135deg, #88d4c0, #9bc7ba);
   --bg-light-gradient: linear-gradient(135deg, #bdece2, #a8d9cf);
 
-
-
   /* Text -------------------- */
   --color-text-primary: rgb(255, 255, 255);
   --color-text-secondary: rgb(0, 0, 0);
@@ -243,14 +241,11 @@ body {
   background: var(--bg-sixth);
 }
 
-
-
 .app-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   padding-top: 3rem;
-  
 }
 
 .pages-container {
@@ -258,25 +253,30 @@ body {
 }
 
 /* Footer ----------------------------*/
+
 .footer-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background: var(--bg-fifth); */
-  /* background: var(--bg-primary); */
   background: var(--bg-eight);
-
   color: white;
-  /* padding: 20px 0; */
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   text-align: center;
 }
 
+.footer {
+  margin: 0;
+}
+
 .linkedin-icon-container {
-  display: inline-block;
-  background: var(--color-text-third); /* Replace this with a valid color */
-  padding: 5px;
-  border-radius: 50%; /* Optional for a circular background */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-text-third);
+  padding: 10px;
+  border-radius: 50%;
+  margin-top: 0.5rem;
 }
 
 .linkedin-icon-container img {
@@ -284,6 +284,7 @@ body {
   width: 24px;
   height: 24px;
 }
+
 /* ---------------------------- */
 
 .pages-container {

@@ -14,8 +14,6 @@ import ExpandCircleIcon from '../../components/SVG/ExpandSVG';
 // const jwtToken = 'token';
 // const token = localStorage.getItem(jwtToken);
 
-
-
 type DecodedToken = {
   userId: string;
   exp: number;
@@ -67,6 +65,7 @@ function EulaChecker() {
   const toggleCollapse = () => {
     setIsCollapsed((prevState) => !prevState);
   };
+  const [isLoading, setIsLoading] = useState(false);
 
   // const apiUrl = 'http://54.221.26.10:4000/graphql';
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -160,6 +159,7 @@ function EulaChecker() {
     setQuestion(event.target.value);
   };
   const handleSubmit = async () => {
+    setIsLoading(true);
     let fullQuestion = question;
     if (activeEula) {
       fullQuestion += `\nEULA Description: ${activeEula.description}`;
@@ -188,6 +188,8 @@ function EulaChecker() {
       // setReasonablenessScore(reasonablenessScore);
     } catch (error) {
       console.error('Error fetching AI response', error);
+    } finally {
+      setIsLoading(false); // Set loading state to false
     }
   };
 
@@ -296,8 +298,6 @@ function EulaChecker() {
     }
   }, [userId]);
 
-
-
   return (
     <>
       <div className={classes['container']}>
@@ -382,7 +382,7 @@ function EulaChecker() {
         {/* Eulas ---------------- ⬆️*/}
 
         {/* Eula Checker ---------------- ⬇️*/}
-                <div className={classes['eula-checker-wrapper']}>
+        <div className={classes['eula-checker-wrapper']}>
           <div>
             {isCollapsed ? (
               <ExpandCircleIcon
@@ -481,13 +481,21 @@ function EulaChecker() {
                 {/* </div> */}
               </div>
             </div>
-            {response && (
+
+            {response || isLoading ? (
               <div>
-                {/* // <div className={classes['response-area']}> */}
-                <h2>Svar:</h2>
-                <p className={classes['response']}>{response}</p>
+                {isLoading ? (
+                  <div className={classes['loader']}>
+                    <div className={classes['spinner']}></div>
+                  </div>
+                ) : (
+                  <div>
+                    <h2>Response:</h2>
+                    <p className={classes['response']}>{response}</p>
+                  </div>
+                )}
               </div>
-            )}
+            ) : null}
           </div>
         </div>
         {/* Eula Checker ---------------- ⬆️*/}
