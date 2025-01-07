@@ -50,6 +50,8 @@ app.use(
           'http://54.221.26.10',
           'http://54.221.26.10:5173',
           'http://www.shouldaisign.se',
+          'http://shouldaisign.se',
+          'shouldaisign.se',
         ].includes(origin)
       ) {
         callback(null, true); // Allow the request if origin is one of the allowed or if it's undefined (e.g., from Postman)
