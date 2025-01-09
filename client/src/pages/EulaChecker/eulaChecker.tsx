@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 // import CloseCircleIcon from '../../components/SVG/CollapseSVG';
 import CloseCircleIcon from '../../components/SVG/CollapseSVG';
 import ExpandCircleIcon from '../../components/SVG/ExpandSVG';
+import { toast } from 'react-toastify';
 
 // const jwtToken = 'token';
 // const token = localStorage.getItem(jwtToken);
@@ -200,7 +201,8 @@ function EulaChecker() {
       reader.onload = async (e) => {
         const text = e.target?.result?.toString() || '';
         await saveEulaToDB(text, file.name);
-        alert('EULA saved to your account!');
+        toast.success('Eula saved to your account!');
+        // alert('EULA saved to your account!');
       };
       reader.readAsText(file);
       fetchEulas();
@@ -264,6 +266,7 @@ function EulaChecker() {
         { Authorization: `Bearer ${token}` }
       );
       setEulas((prevEulas) => prevEulas.filter((eula) => eula.id !== id));
+      toast.success('Eula deleted successfully!');
     } catch (error) {
       console.error('Error deleting EULA', error);
     }
