@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 import CloseCircleIcon from '../../components/SVG/CollapseSVG';
 import ExpandCircleIcon from '../../components/SVG/ExpandSVG';
 
-// const jwtToken = 'token';
+// const jwtToken = 'token' ;
 // const token = localStorage.getItem(jwtToken);
 
 
