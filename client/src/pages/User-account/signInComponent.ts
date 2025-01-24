@@ -2,6 +2,8 @@ import { useAuth } from '../../helpers/AutContext';
 import { makeGraphQLRequest } from '../../helpers/api';
 import { SignInFormData } from '../User-account/SignIn';
 
+
+
 const SIGN_IN_MUTATION = `
   mutation login ($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -35,7 +37,8 @@ const SignInComponent = () => {
         console.log('User logged in:', result.data.login);
         localStorage.setItem('token', token);
         login(token);
-        alert('User successfully logged in!');
+        // toast.success('User successfully logged in!');
+        
         return { token }; // Return the token for further use
       }
     } catch (error) {
