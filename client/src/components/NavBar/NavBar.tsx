@@ -56,19 +56,21 @@ const Navbar: React.FC = () => {
             Home
           </NavLink>
         </li>
-        
-        
-        <li>
-          <NavLink
-            to='/eula-checker'
-            className={({ isActive }) =>
-              isActive ? classes['active-link'] : classes['inactive-link']
-            }
-            onClick={toggleMenu}
-          >
-            Eula Checker
-          </NavLink>
-        </li>
+
+        {isAuthenticated && (
+          <li>
+            <NavLink
+              to='/eula-checker'
+              className={({ isActive }) =>
+                isActive ? classes['active-link'] : classes['inactive-link']
+              }
+              onClick={toggleMenu}
+            >
+              Eula Checker
+            </NavLink>
+          </li>
+        )}
+
         <li>
           <NavLink
             to='/about'
@@ -80,7 +82,6 @@ const Navbar: React.FC = () => {
             About Me
           </NavLink>
         </li>
-
 
         {!isAuthenticated ? (
           <li>
@@ -105,8 +106,6 @@ const Navbar: React.FC = () => {
             </button>
           </li>
         )}
-
-
       </ul>
     </nav>
   );
