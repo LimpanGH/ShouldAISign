@@ -4,7 +4,7 @@ import { useAuth } from '../../helpers/AutContext'; // Import useAuth
 import classes from './NavBar.module.css';
 
 const Navbar: React.FC = () => {
-  const { isAuthenticated, logout } = useAuth(); // Access auth state and logout
+  const { isAuthenticated, logout, user } = useAuth(); // Access auth state and logout
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
 
@@ -45,6 +45,23 @@ const Navbar: React.FC = () => {
           isMenuOpen ? classes['active'] : ''
         }`}
       >
+
+{isAuthenticated && (
+          <li>
+            <NavLink
+              to='/my-page'
+              className={({ isActive }) =>
+                isActive ? classes['active-link'] : classes['inactive-link']
+              }
+              onClick={toggleMenu}
+            >
+              {user?.name || 'My Page'}
+              
+            </NavLink>
+          </li>
+        )}
+
+
         <li>
           <NavLink
             to='/'

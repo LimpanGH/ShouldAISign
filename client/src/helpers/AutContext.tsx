@@ -6,9 +6,16 @@ import React, {
   useCallback,
 } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { set } from 'react-hook-form';
 
 interface DecodedToken {
   userId: string;
+  name: string;
+}
+
+interface User {
+  userId: string;
+  name: string;
 }
 
 interface AuthContextProps {
@@ -17,6 +24,7 @@ interface AuthContextProps {
   logout: () => void;
   verifyAuth: () => boolean;
   getUserId: () => string | null;
+  user: User | null;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -25,22 +33,44 @@ const AuthContext = createContext<AuthContextProps>({
   logout: () => {},
   verifyAuth: () => false,
   getUserId: () => null,
+  user: null,
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const jwtToken = 'token';
 
   useEffect(() => {
     const token = localStorage.getItem(jwtToken);
-    setIsAuthenticated(!!token);
+    if (token) {
+      try {
+        const decoded: DecodedToken = jwtDecode(token);
+        // console.log('Decoded Token during initialization:', decoded); // Log here
+
+        setIsAuthenticated(true);
+        setUser({ userId: decoded.userId, name: decoded.name });
+      } catch (error) {
+        console.error('Failed to decode token during initailization:', error);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
   }, []);
 
   const login = (token: string) => {
-    localStorage.setItem(jwtToken, token);
-    setIsAuthenticated(true);
+    try {
+      const decoded: DecodedToken = jwtDecode(token);
+      // console.log('Decoded Token:', decoded); // Log decoded token
+
+      localStorage.setItem(jwtToken, token);
+      setIsAuthenticated(true);
+      setUser({ userId: decoded.userId, name: decoded.name });
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+    }
   };
 
   const logout = () => {
@@ -68,7 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, verifyAuth, getUserId }}
+      value={{ isAuthenticated, login, logout, verifyAuth, getUserId, user }}
     >
       {children}
     </AuthContext.Provider>

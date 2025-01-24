@@ -11,6 +11,7 @@ const SIGN_IN_MUTATION = `
       user {
         id
         email
+        name
       }
     }
   }

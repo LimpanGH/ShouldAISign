@@ -88,7 +88,7 @@ const userResolvers = {
       if (!valid) {
         throw new Error('Incorrect password');
       }
-      const token = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {
+      const token = jwt.sign({ userId: user.id, name: user.name }, JWT_SECRET_KEY, {
         expiresIn: '3h',
       });
       console.log('Users token is:', token);
