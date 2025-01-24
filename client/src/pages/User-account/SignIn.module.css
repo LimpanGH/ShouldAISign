@@ -43,7 +43,7 @@
 
 .signin-form label {
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 8px;
   color: #333;
 }
@@ -54,7 +54,7 @@
   margin-bottom: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
   box-sizing: border-box;
 }
 
@@ -99,7 +99,8 @@
 
 .signin-form .error-message {
   color: red;
-  font-size: 12px;
+  font-size: 16px;
+  
 }
 
 .signin-form .input-error {

@@ -3,6 +3,8 @@ import { useAuth } from './helpers/AutContext';
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 import { SignIn } from './pages/User-account/SignIn';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import SignUp from './pages/User-account/SignUp';
 import EulaChecker from './pages/EulaChecker/eulaChecker';
@@ -18,6 +20,7 @@ function App() {
   return (
     <div className='app-container'>
       <NavBar />
+      <ToastContainer />
       <div className='pages-container'>
         <Routes>
           <Route path='/' element={<Home />} />

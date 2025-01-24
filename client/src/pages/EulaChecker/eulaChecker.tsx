@@ -10,11 +10,10 @@ import { jwtDecode } from 'jwt-decode';
 // import CloseCircleIcon from '../../components/SVG/CollapseSVG';
 import CloseCircleIcon from '../../components/SVG/CollapseSVG';
 import ExpandCircleIcon from '../../components/SVG/ExpandSVG';
+import { toast } from 'react-toastify';
 
 // const jwtToken = 'token' ;
 // const token = localStorage.getItem(jwtToken);
-
-
 
 type DecodedToken = {
   userId: string;
@@ -67,6 +66,7 @@ function EulaChecker() {
   const toggleCollapse = () => {
     setIsCollapsed((prevState) => !prevState);
   };
+  const [isLoading, setIsLoading] = useState(false);
 
   // const apiUrl = 'http://54.221.26.10:4000/graphql';
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -160,6 +160,7 @@ function EulaChecker() {
     setQuestion(event.target.value);
   };
   const handleSubmit = async () => {
+    setIsLoading(true);
     let fullQuestion = question;
     if (activeEula) {
       fullQuestion += `\nEULA Description: ${activeEula.description}`;
@@ -188,6 +189,8 @@ function EulaChecker() {
       // setReasonablenessScore(reasonablenessScore);
     } catch (error) {
       console.error('Error fetching AI response', error);
+    } finally {
+      setIsLoading(false); // Set loading state to false
     }
   };
 
@@ -198,7 +201,8 @@ function EulaChecker() {
       reader.onload = async (e) => {
         const text = e.target?.result?.toString() || '';
         await saveEulaToDB(text, file.name);
-        alert('EULA saved to your account!');
+        toast.success('Eula saved to your account!');
+        // alert('EULA saved to your account!');
       };
       reader.readAsText(file);
       fetchEulas();
@@ -262,6 +266,7 @@ function EulaChecker() {
         { Authorization: `Bearer ${token}` }
       );
       setEulas((prevEulas) => prevEulas.filter((eula) => eula.id !== id));
+      toast.success('Eula deleted successfully!');
     } catch (error) {
       console.error('Error deleting EULA', error);
     }
@@ -295,8 +300,6 @@ function EulaChecker() {
       fetchEulas(); // Fetch EULAs assigned to the current user
     }
   }, [userId]);
-
-
 
   return (
     <>
@@ -382,7 +385,7 @@ function EulaChecker() {
         {/* Eulas ---------------- ⬆️*/}
 
         {/* Eula Checker ---------------- ⬇️*/}
-                <div className={classes['eula-checker-wrapper']}>
+        <div className={classes['eula-checker-wrapper']}>
           <div>
             {isCollapsed ? (
               <ExpandCircleIcon
@@ -481,13 +484,21 @@ function EulaChecker() {
                 {/* </div> */}
               </div>
             </div>
-            {response && (
+
+            {response || isLoading ? (
               <div>
-                {/* // <div className={classes['response-area']}> */}
-                <h2>Svar:</h2>
-                <p className={classes['response']}>{response}</p>
+                {isLoading ? (
+                  <div className={classes['loader']}>
+                    <div className={classes['spinner']}></div>
+                  </div>
+                ) : (
+                  <div>
+                    <h2>Response:</h2>
+                    <p className={classes['response']}>{response}</p>
+                  </div>
+                )}
               </div>
-            )}
+            ) : null}
           </div>
         </div>
         {/* Eula Checker ---------------- ⬆️*/}
