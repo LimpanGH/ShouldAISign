@@ -56,6 +56,8 @@ const Navbar: React.FC = () => {
             Home
           </NavLink>
         </li>
+        
+        
         <li>
           <NavLink
             to='/eula-checker'
@@ -78,6 +80,8 @@ const Navbar: React.FC = () => {
             About Me
           </NavLink>
         </li>
+
+
         {!isAuthenticated ? (
           <li>
             <NavLink
@@ -101,6 +105,8 @@ const Navbar: React.FC = () => {
             </button>
           </li>
         )}
+
+
       </ul>
     </nav>
   );

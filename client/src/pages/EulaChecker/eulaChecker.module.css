@@ -184,6 +184,7 @@
 
 .dropzone.active {
   transform: scale(1.05);
+  min-width: 20rem;
 }
 
 p {

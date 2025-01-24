@@ -55,11 +55,15 @@ const About = () => {
           >
             Chas Academy
           </a>{' '}
-          i Stockholm. Jag söker Lia/praktik från Januari 2025. Jag drivs av att
-          bygga produkter tillsammans genom att hitta hållbara lösningar som
-          fungerar över tid och ger samhällsnytta. Jag har hög arbetsmoral och
-          vill äga mina uppgifter i en miljö där man främjar individens
-          kreativitet och utövar frihet under ansvar.
+          i Stockholm. Jag gör nu min Lia/praktik på {''}
+          <a className={classes['link']} href='https://kan.se/' target='_blank'>
+            Kan Agency
+          </a>{' '}
+          från januari 2025 till slutet av juni. Jag drivs av att bygga
+          produkter tillsammans genom att hitta hållbara lösningar som fungerar
+          över tid och ger samhällsnytta. Jag har hög arbetsmoral och vill äga
+          mina uppgifter i en miljö där man främjar individens kreativitet och
+          utövar frihet under ansvar.
           <br /> <br />
           Jag är en stolt pappa till en dotter, fd sjukgymnast, vinnare av
           Streetdance SM 2004 med min grupp, ex Paris-bo och gitarr-fantast. På
@@ -75,9 +79,18 @@ const About = () => {
           på skolan då det fanns önskemål om det. På jobbet uppskattar jag
           tydlighet, högt i tak och ett generöst givande och tagande mellan mig,
           kollegor och arbetsgivare. <br />
-          <br />
+          {/* <br />
           Jag har driv, och söker ett företag som vill förvalta det på ett bra
           sätt. Med vänlig hälsning, Linus Johannesson <br />
+          <br /> */}
+          <br />
+          På KAN Agency kommer jag bland annat att lära mig mer om CMSer som HubSpot och
+          Wordpress och hur man jobbar med Javascript och dess ramverk inom
+          dessa verktyg. Jag sitter även med i möten med kund och lär mig om
+          kommunikation, planering, budget och mycket annat. Jag kommer även få
+          möjlighet att sitta med performance-team, AD och Marketing för
+          att få insikt i hela kedjan hos en fullskalig modern Webbyrå.
+          <br />
           <br />
           <div className={classes['contact-wrapper']}>
             <div>
@@ -197,17 +210,17 @@ const About = () => {
             <strong>Frontend:</strong> Vite, React, Typescript.{' '}
           </p>
           <p>
-            <strong>Backend:</strong> GraphQL, Mongoose, React, Typescript,
+            <strong>Backend:</strong> GraphQL, Mongoose, JavaScript, Typescript,
             Jsonwebtoken, Bcrypt, Express, OpenAI.
           </p>
           <p>
             <strong>DB:</strong> Atlas MongoDB.
           </p>
           <p>
-            <strong>Hosted</strong> on AWS EC2 using Ngingx as webserver.
+            <strong>Hosted:</strong> on AWS EC2 using Ngingx as webserver.
           </p>
           <p>
-            <strong>Domain-name</strong> GleSys.
+            <strong>Domain-name:</strong> GleSys.
           </p>
           {/* <p className={classes['features-title']}>Kommande Features:</p>
           <ul>
