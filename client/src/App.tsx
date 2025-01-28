@@ -11,6 +11,7 @@ import EulaChecker from './pages/EulaChecker/eulaChecker';
 import About from './pages/About/About';
 import Home from './pages/Home/Home';
 import CVPage from './pages/CVPage/cvPage';
+import MyPage from './pages/MyPage/myPage';
 
 import './App.css';
 
@@ -42,6 +43,7 @@ function App() {
           />
           <Route path='/about' element={<About />} />
           <Route path='/cv-page' element={<CVPage />} />
+          <Route path='/my-page' element={<MyPage />} />
         </Routes>
       </div>
       <div className='footer-container'>

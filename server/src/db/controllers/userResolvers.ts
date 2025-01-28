@@ -88,9 +88,13 @@ const userResolvers = {
       if (!valid) {
         throw new Error('Incorrect password');
       }
-      const token = jwt.sign({ userId: user.id, name: user.name }, JWT_SECRET_KEY, {
-        expiresIn: '3h',
-      });
+      const token = jwt.sign(
+        { userId: user.id, name: user.name, email: user.email },
+        JWT_SECRET_KEY,
+        {
+          expiresIn: '3h',
+        }
+      );
       console.log('Users token is:', token);
       return { token, user };
     },
@@ -122,6 +126,40 @@ const userResolvers = {
       console.log('New user added', { name: args.name, email: args.email });
       return user.save();
     },
+
+    changePassword: async (_: any, args: { [key: string]: any }) => {
+      const { userId, currentPassword, newPassword } = args;
+
+      if (!userId || !currentPassword || !newPassword) {
+        throw new Error('All fields are required');
+      }
+
+      const user = await UserModel.findById(userId);
+      if (!user) {
+        throw new Error('User Not found');
+      }
+
+      const isPasswordValid = await bcrypt.compare(
+        currentPassword,
+        user.password as string
+      );
+      if (!isPasswordValid) {
+        throw new Error('Current password is incorrect');
+      }
+
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+      if (!args.password || typeof args.password !== 'string') {
+        throw new Error('Password is invalid or missing');
+      }
+
+      user.password = hashedPassword;
+      await user.save();
+
+      return { success: true, message: 'Password changed successfully', user };
+    },
+
     deleteUser: async (
       _: any,
       args: { [key: string]: any },

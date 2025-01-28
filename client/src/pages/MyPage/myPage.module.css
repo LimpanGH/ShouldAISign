@@ -1,0 +1,93 @@
+/* MyPage.module.css */
+
+/* General page layout */
+.my-page-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  min-height: 100vh;
+  /* background-color: red; */
+}
+
+/* Section for content display */
+.page-content {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  max-width: 50rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  /* background-color: green; */
+}
+
+/* Message for authenticated users */
+.authenticated-message {
+  font-size: 24px;
+  color: #2d6a4f;
+  font-weight: bold;
+  /* background-color: blue; */
+}
+
+/* Message for non-authenticated users */
+.not-authenticated-message {
+  font-size: 20px;
+  color: #d1495b;
+  font-style: italic;
+}
+
+/* User ID section */
+.user-name,
+.user-id {
+  font-size: 18px;
+  color: #777;
+  font-weight: normal;
+  margin-top: 10px;
+  /* background-color: yellow; */
+}
+
+.change-password-container {
+  /* background-color: pink; */
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid black;
+  /* border-radius: 5px; */
+  max-width: 50rem;
+}
+
+.change-password-form {
+  /* background-color: purple; */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.change-password-form label {
+  font-weight: bold;
+}
+
+.change-password-form input {
+  padding: 0.5rem;
+  /* border: 1 px solid black; */
+  /* border-radius: 5px; */
+}
+
+.change-password-form button {
+  padding: 0.75rem 1rem;
+  background-color: olive;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.change-password-form button:hover {
+    background-color: #0056b3;
+}
+
+.success-message{
+    color: green;
+    margin-top: 1 rem;
+}

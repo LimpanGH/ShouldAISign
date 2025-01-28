@@ -22,6 +22,7 @@ export const UserType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
+    
     // password: { type: GraphQLString },
     tasks: {
       type: new GraphQLList(EulaType),
@@ -100,6 +101,16 @@ const Mutation = new GraphQLObjectType({
 
       resolve: userResolvers.Mutation.addUser,
     },
+    changePassword: {
+      type: UserType,
+      args: {
+        userId:{ type: GraphQLID}, 
+        currentPassword: { type: GraphQLString },
+        newPassword: { type: GraphQLString },
+      },
+      resolve: userResolvers.Mutation.changePassword,
+    },
+
     deleteUser: {
       type: UserType,
       args: {
