@@ -15,6 +15,11 @@ export const aiResponseType = new GraphQLObjectType({
   },
 });
 
+//!--- Function to remove Markdown formatting
+function stripMarkdownFormatting(text: string): string {
+  return text.replace(/\*\*/g, '');
+}
+
 function calculateReasonableness(response: string): number {
   const lowerResponse = response.toLowerCase();
   console.log('Lower response:', lowerResponse);
@@ -69,7 +74,7 @@ const Mutation = new GraphQLObjectType({
       resolve: async (_: any, args: { [key: string]: any }) => {
         try {
           const question = args.question;
-          const response = await getAIResponse(question);
+          let response = await getAIResponse(question);
           console.log('AI resonse:', response);
 
           if (response === null) {
@@ -78,6 +83,9 @@ const Mutation = new GraphQLObjectType({
               reasonablenessScore: 0,
             };
           }
+
+          //!--------- Remove ** formatting
+          response = stripMarkdownFormatting(response);
 
           const reasonablenessScore = calculateReasonableness(response);
           console.log('Calculated Reasonableness Score:', reasonablenessScore);
