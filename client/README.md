@@ -22,3 +22,6 @@
 - https://www.figma.com/community/file/1110565606483023162
 - https://iconmonstr.com/linkedin-3-svg/ 
 - https://setterwalls.se/medarbetare/ 
+
+
+<!-- ------------------------- -->

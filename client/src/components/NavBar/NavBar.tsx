@@ -45,8 +45,7 @@ const Navbar: React.FC = () => {
           isMenuOpen ? classes['active'] : ''
         }`}
       >
-
-{isAuthenticated && (
+        {isAuthenticated && (
           <li>
             <NavLink
               to='/my-page'
@@ -56,11 +55,9 @@ const Navbar: React.FC = () => {
               onClick={toggleMenu}
             >
               {user?.name || 'My Page'}
-              
             </NavLink>
           </li>
         )}
-
 
         <li>
           <NavLink

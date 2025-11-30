@@ -167,4 +167,4 @@ Development Tools:
   I used `tsx` to run the project without compiling, which speeded things up. I ran `build` to compile to my dist folder in addition to code in the file: fix-import-extensions.js for solving the problem with node.js not understanding imports from files.
 
 Summary
-Basically, my application provides a robust backend for managing users and tasks, using the power of GraphQL for flexible data querying, while ensuring security and data integrity through authentication, authorization, and input validation.  The integration with the OpenAI API allows the application to generate intelligent responses based on user queries, enhancing its overall functionality.
+Basically, my application provides a robust backend for managing users and tasks, using the power of GraphQL for flexible data querying, while ensuring security and data integrity through authentication, authorization, and input validation. The integration with the OpenAI API allows the application to generate intelligent responses based on user queries, enhancing its overall functionality.

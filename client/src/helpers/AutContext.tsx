@@ -53,7 +53,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         // console.log('Decoded Token during initialization:', decoded); // Log here
 
         setIsAuthenticated(true);
-        setUser({ userId: decoded.userId, name: decoded.name, email: decoded.email });
+        setUser({
+          userId: decoded.userId,
+          name: decoded.name,
+          email: decoded.email,
+        });
       } catch (error) {
         console.error('Failed to decode token during initailization:', error);
       }
@@ -69,7 +73,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       localStorage.setItem(jwtToken, token);
       setIsAuthenticated(true);
-      setUser({ userId: decoded.userId, name: decoded.name });
+      setUser({
+        userId: decoded.userId,
+        name: decoded.name,
+        email: decoded.email,
+      });
     } catch (error) {
       console.error('Failed to decode token:', error);
     }
